@@ -1,0 +1,64 @@
+package Finance.Bank_System.entitiesAboutCustomer;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import Finance.Bank_System.entitiesAboutAccountTransaction.AccountTransaction;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "customer_accounts")
+
+public class CustomerAccount {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+    
+    @Column(name="account_ıban",length = 26)
+    private String accountIban;
+    
+    @Column(name = "account_balance")
+    private int accountBalance;
+    
+    @Column(name = "account_branch_code",length = 4)
+    private String accountBranchCode;
+    
+    @Column(name = "account_number", unique = true,length = 7)
+    private String accountNumber;
+    
+    @Column(name = "account_type",length = 10)//vadeli vadesiz
+    private String accountType;
+    
+    @Column(name = "account_currency",length = 3)//usd tr
+    private String accountCurrency;
+    
+    @Column(name = "account_statu",length = 7)
+    private String accountStatu;
+
+    @Column(name="created_time")
+    private LocalDateTime createdTime;
+    
+    @ManyToOne
+    @JoinColumn(name = "customer_account_tc_kimlik_number", referencedColumnName = "tc_kimlik_number", updatable = false)
+    private Customer customer;
+    
+    @OneToMany(mappedBy = "accountTransaction")
+    private List<AccountTransaction> accountTransactions;
+	
+
+}
