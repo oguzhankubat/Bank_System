@@ -32,11 +32,11 @@ public class İndividualCustomer {
     @Column(name="individual_phone_number",length = 11,nullable = false)
     private String individualPhoneNumber;
     
-    @Column(name="individual_password",length = 64,nullable = false)
-    private String accountPassword;
+    @Column(name="individual_account_password",length = 64,nullable = false)
+    private String individualAccountPassword;
     
-    @Column(name = "customer_statu",length = 7)
-    private String customerStatu;
+    @Column(name = "individual_account_statu",length = 7)
+    private String individualAccountStatu;
     
     @Column(name="created_time")
     private LocalDateTime createdTime;
@@ -49,7 +49,6 @@ public class İndividualCustomer {
     
     @OneToMany(mappedBy = "individualCustomerAdress",cascade = CascadeType.ALL)
     private List<CustomerAdress> individualCustomerAdresses;
-    
     
     @OneToOne
     @JoinColumn(name = "individual_customer_tc_kimlik_number", referencedColumnName = "tc_kimlik_number")

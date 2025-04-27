@@ -35,14 +35,14 @@ public class CorporateCustomer {
     @Column(name="corporate_phone_number",length = 11,nullable = false)
     private String corporatePhoneNumber;
     
-    @Column(name="corporate_password",length = 64,nullable = false)
-    private String accountPassword;
+    @Column(name="corporate_account_password",length = 64,nullable = false)
+    private String corporateAccountPassword;
     
     @Column(name="created_time")
     private LocalDateTime createdTime;
     
-    @Column(name = "customer_statu",length = 7)
-    private String customerStatu;
+    @Column(name = "corporate_account_statu",length = 7)
+    private String corporateAccountStatu;
     
     @Column(name = "corporate_customer_number",unique = true,length = 12)
     private String corporateCustomerNumber;
