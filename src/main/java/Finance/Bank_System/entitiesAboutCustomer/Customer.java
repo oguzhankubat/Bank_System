@@ -4,13 +4,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -52,14 +52,10 @@ public class Customer {
     @Column(name = "customer_statu",length = 7)
     private String customerStatu;
     
-    @Column(name = "customer_number",unique = true,length = 10)
-    private String customerNumber;
+    @OneToOne(mappedBy = "associatedİndividualCustomer")
+    private İndividualCustomer individualCustomer;
     
-    
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
-    private List<CustomerAccount> customerAccounts;
-    
-    @OneToMany(mappedBy = "customerAdress",cascade = CascadeType.ALL)
-    private List<CustomerAdress> customerAdresses;
+    @OneToMany(mappedBy = "associatedCorporateCustomer")
+    private List<CorporateCustomer>corporateCustomer;
     
 }

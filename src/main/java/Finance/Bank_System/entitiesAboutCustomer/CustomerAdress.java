@@ -31,19 +31,19 @@ public class CustomerAdress {
     
     @Column(name = "address_type",length = 10)
     private String addressType;
-    
-    @Column(name = "adress_province",length = 15)
-    private String adressProvince;
-    
-    @Column(name = "adress_district",length = 15)
-    private String addressDistrict;
+
     
     @Column(name = "address_detail",length = 40)
     private String addressDetail;
     
     @ManyToOne
-    @JoinColumn(name = "customer_tc_kimlik_number", referencedColumnName = "tc_kimlik_number")
-    private Customer customerAdress;
+    @JoinColumn(name = "customer_individual_customer_number", referencedColumnName = "individual_customer_number")
+    private İndividualCustomer individualCustomerAdress;
+    
+    @ManyToOne
+    @JoinColumn(name = "customer_corporate_customer_number", referencedColumnName = "corporate_customer_number")
+    private CorporateCustomer corporateCustomerAdress;
+    
 }
     
 

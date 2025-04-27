@@ -44,7 +44,7 @@ public class CustomerAccount {
     @Column(name = "account_type",length = 10)//vadeli vadesiz
     private String accountType;
     
-    @Column(name = "account_currency",length = 3)//usd tr
+    @Column(name = "account_currency",length = 3,nullable = false)
     private String accountCurrency;
     
     @Column(name = "account_statu",length = 7)
@@ -54,8 +54,12 @@ public class CustomerAccount {
     private LocalDateTime createdTime;
     
     @ManyToOne
-    @JoinColumn(name = "customer_account_tc_kimlik_number", referencedColumnName = "tc_kimlik_number", updatable = false)
-    private Customer customer;
+    @JoinColumn(name = "customer_account_individual_customer_number", referencedColumnName = "individual_customer_number", updatable = false)
+    private İndividualCustomer accountİndividualCustomerNumber;
+    
+    @ManyToOne
+    @JoinColumn(name = "customer_account_corporate_customer_number", referencedColumnName = "corporate_customer_number", updatable = false)
+    private CorporateCustomer accountCorporateCustomerNumber;
     
     @OneToMany(mappedBy = "accountTransaction")
     private List<AccountTransaction> accountTransactions;
