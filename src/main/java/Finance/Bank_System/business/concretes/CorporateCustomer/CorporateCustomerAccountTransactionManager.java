@@ -1,0 +1,7 @@
+package Finance.Bank_System.business.concretes.CorporateCustomer;
+
+import Finance.Bank_System.business.abstracts.corporateCustomer.CorporateCustomerAccountTransactionService;
+
+public class CorporateCustomerAccountTransactionManager implements CorporateCustomerAccountTransactionService{
+
+}

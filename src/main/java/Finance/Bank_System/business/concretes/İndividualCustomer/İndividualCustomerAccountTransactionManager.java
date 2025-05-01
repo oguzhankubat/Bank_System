@@ -1,0 +1,7 @@
+package Finance.Bank_System.business.concretes.İndividualCustomer;
+
+import Finance.Bank_System.business.abstracts.individualCustomer.İndividualCustomerAccountTransactionService;
+
+public class İndividualCustomerAccountTransactionManager implements İndividualCustomerAccountTransactionService{
+
+}
