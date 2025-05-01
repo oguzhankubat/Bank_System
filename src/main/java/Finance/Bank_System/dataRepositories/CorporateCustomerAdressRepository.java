@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import Finance.Bank_System.entities.CorporateCustomer.CorporateCustomerAdress;
 
-public interface CorporateAdressRepository extends JpaRepository<CorporateCustomerAdress, Long>{
+public interface CorporateCustomerAdressRepository extends JpaRepository<CorporateCustomerAdress, Long>{
 
 }
