@@ -1,9 +1,11 @@
-package Finance.Bank_System.entitiesAboutCustomer;
+package Finance.Bank_System.entities.Customer;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import Finance.Bank_System.entities.CorporateCustomer.CorporateCustomer;
+import Finance.Bank_System.entities.İndividualCustomer.İndividualCustomer;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

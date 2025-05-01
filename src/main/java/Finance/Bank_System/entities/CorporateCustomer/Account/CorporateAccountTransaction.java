@@ -1,6 +1,5 @@
-package Finance.Bank_System.entitiesAboutAccountTransaction;
+package Finance.Bank_System.entities.CorporateCustomer.Account;
 
-import Finance.Bank_System.entitiesAboutCustomer.CustomerAccount;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,8 +16,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "account_transactions")
-public class AccountTransaction {
+@Table(name = "corporate_account_transactions")
+public class CorporateAccountTransaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -35,5 +34,5 @@ public class AccountTransaction {
     
     @ManyToOne
     @JoinColumn(name = "transaction_account_number", referencedColumnName = "account_number")
-    private CustomerAccount accountTransaction;
-}
+    private CorporateCustomerAccount corporateAccountTransaction;
+} 

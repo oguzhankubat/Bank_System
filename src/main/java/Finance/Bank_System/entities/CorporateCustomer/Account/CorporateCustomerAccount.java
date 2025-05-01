@@ -1,9 +1,9 @@
-package Finance.Bank_System.entitiesAboutCustomer;
+package Finance.Bank_System.entities.CorporateCustomer.Account;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import Finance.Bank_System.entitiesAboutAccountTransaction.AccountTransaction;
+import Finance.Bank_System.entities.CorporateCustomer.CorporateCustomer;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,9 +21,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "customer_accounts")
+@Table(name = "corporate_customer_accounts")
 
-public class CustomerAccount {
+public class CorporateCustomerAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -54,15 +54,12 @@ public class CustomerAccount {
     private LocalDateTime createdTime;
     
     @ManyToOne
-    @JoinColumn(name = "customer_account_individual_customer_number", referencedColumnName = "individual_customer_number", updatable = false)
-    private İndividualCustomer accountİndividualCustomerNumber;
-    
-    @ManyToOne
     @JoinColumn(name = "customer_account_corporate_customer_number", referencedColumnName = "corporate_customer_number", updatable = false)
     private CorporateCustomer accountCorporateCustomerNumber;
     
-    @OneToMany(mappedBy = "accountTransaction")
-    private List<AccountTransaction> accountTransactions;
+    @OneToMany(mappedBy = "corporateAccountTransaction")
+    private List<CorporateAccountTransaction> CorporateAccountTransactions;
 	
 
 }
+

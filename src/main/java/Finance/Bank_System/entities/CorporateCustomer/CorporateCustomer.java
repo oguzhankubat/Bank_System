@@ -1,8 +1,10 @@
-package Finance.Bank_System.entitiesAboutCustomer;
+package Finance.Bank_System.entities.CorporateCustomer;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+import Finance.Bank_System.entities.CorporateCustomer.Account.CorporateCustomerAccount;
+import Finance.Bank_System.entities.Customer.Customer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -48,10 +50,10 @@ public class CorporateCustomer {
     private String corporateCustomerNumber;
     
     @OneToMany(mappedBy = "accountCorporateCustomerNumber")
-    private List<CustomerAccount> corporateCustomerAccount;
+    private List<CorporateCustomerAccount> corporateCustomerAccount;
     
     @OneToMany(mappedBy = "corporateCustomerAdress",cascade = CascadeType.ALL)
-    private List<CustomerAdress> corporateCustomerAdresses;
+    private List<CorporateCustomerAdress> corporateCustomerAdresses;
     
     @ManyToOne
     @JoinColumn(name = "corporate_customer_tc_kimlik_number", referencedColumnName = "tc_kimlik_number")
