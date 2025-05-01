@@ -40,7 +40,7 @@ public class CorporateCustomerAdress {
     
     @ManyToOne
     @JoinColumn(name = "corporate_customer_number", referencedColumnName = "corporate_customer_number")
-    private CorporateCustomer corporateCustomerAdresses;
+    private CorporateCustomer corporateCustomerAdress;
     
 }
     
