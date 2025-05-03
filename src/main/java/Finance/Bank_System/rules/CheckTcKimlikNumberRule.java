@@ -20,6 +20,7 @@ import Finance.Bank_System.business.requests.CreateİndividualCustomerRequest;
 import Finance.Bank_System.core.ModelMapperServices;
 import Finance.Bank_System.dataRepositories.Customer.CustomerRepository;
 import Finance.Bank_System.entities.Customer.Customer;
+import Finance.Bank_System.utilities.MessageService;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -28,12 +29,13 @@ public class CheckTcKimlikNumberRule {
 
     private CustomerRepository customerRepository;
     private ModelMapperServices modelMapperServices;
-
+    private MessageService messageService;
+    
     public Customer fetchCustomerFromCivilSystem(CreateİndividualCustomerRequest createİndividualCustomerRequest) {
 
 
         Optional<Customer> existingCustomer = customerRepository.findByTcKimlikNumber(createİndividualCustomerRequest.getTcKimlikNumber());
-
+        
         if (existingCustomer.isPresent()) {
     
             return existingCustomer.get();
@@ -72,6 +74,14 @@ public class CheckTcKimlikNumberRule {
 
                 ExternalAPICivilSystenCivilResponse civilCustomer = objectMapper.readValue(response.body(), ExternalAPICivilSystenCivilResponse.class);
                 
+                if (!civilCustomer.getBirthDate().equals(createİndividualCustomerRequest.getBirthDate())) {
+                    throw new RuntimeException(messageService.getMessage("input.is.wrong"));
+                }
+                if (civilCustomer == null || civilCustomer.getTcKimlikNumber() == null) {
+                    throw new RuntimeException(messageService.getMessage("tc.kimlik.number.is.not.exist"));
+                }
+                
+                
                 Customer customer = modelMapperServices.forRequest()
                         .map(civilCustomer, Customer.class); 
 
@@ -83,11 +93,11 @@ public class CheckTcKimlikNumberRule {
                 return customer;
 
             } else {
-                throw new RuntimeException("External service responded with error code: " + response.statusCode());
+                throw new RuntimeException(messageService.getMessage("external.service.error") + response.statusCode());
             }
 
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException("Error while calling external service", e);
+            throw new RuntimeException(messageService.getMessage("external.service.error"), e);
         }
     }
 }

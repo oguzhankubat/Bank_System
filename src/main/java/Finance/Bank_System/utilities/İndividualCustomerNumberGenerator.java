@@ -2,7 +2,11 @@ package Finance.Bank_System.utilities;
 
 import java.security.SecureRandom;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class İndividualCustomerNumberGenerator {
+
     public static String musteriNumarasiOlustur() {
         SecureRandom secureRandom = new SecureRandom();
         StringBuilder musteriNumarasi = new StringBuilder();
