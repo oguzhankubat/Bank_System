@@ -1,4 +1,4 @@
-package Finance.Bank_System.api;
+package Finance.Bank_System.api.CorporateCustomer;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/individualCustomer")
-public class İndividualCustomerController {
+@RequestMapping("/api/corporateCustomerAccountTransaction")
+public class CorporateCustomerAccountTransactionController {
 
 }

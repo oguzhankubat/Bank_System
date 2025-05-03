@@ -1,6 +1,10 @@
 package Finance.Bank_System.business.abstracts.individualCustomer;
 
+import Finance.Bank_System.business.requests.CreateİndividualCustomerRequest;
+import Finance.Bank_System.business.responses.AfterCreateİndividualCustomerResponse;
+
 public interface İndividualCustomerService {
 	
+	 AfterCreateİndividualCustomerResponse createİndividualCustomer(CreateİndividualCustomerRequest createİndividualCustomerRequest);
 
 }
