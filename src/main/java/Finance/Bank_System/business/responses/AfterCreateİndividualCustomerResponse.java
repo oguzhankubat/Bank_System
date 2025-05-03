@@ -7,5 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class AfterCreateİndividualCustomerResponse {
 	
-	private final String individualCustomerNumber;
+	private final String message;
 }

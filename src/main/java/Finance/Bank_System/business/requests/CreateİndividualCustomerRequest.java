@@ -1,6 +1,6 @@
 package Finance.Bank_System.business.requests;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +13,6 @@ public class CreateİndividualCustomerRequest{
 	
 	private String tcKimlikNumber;
 	private String individualPhoneNumber;
-	private LocalDateTime birthDate;
+	private LocalDate birthDate;
 	private String individualAccountPassword;
 }
