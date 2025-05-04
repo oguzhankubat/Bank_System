@@ -2,21 +2,30 @@ package Finance.Bank_System.utilities;
 
 import java.security.SecureRandom;
 
+import org.springframework.stereotype.Component;
+
+import Finance.Bank_System.dataRepositories.İndividualCustomer.İndividualCustomerRepository;
 import lombok.AllArgsConstructor;
 
+@Component
 @AllArgsConstructor
 public class İndividualCustomerNumberGenerator {
 
-    public static String musteriNumarasiOlustur() {
+    private final İndividualCustomerRepository individualCustomerRepository;
+
+    public String musteriNumarasiOlustur() {
         SecureRandom secureRandom = new SecureRandom();
-        StringBuilder musteriNumarasi = new StringBuilder();
+        String generatedCustomerNumber;
 
-        for (int i = 0; i < 12; i++) {
-            int rakam = secureRandom.nextInt(10);
-            musteriNumarasi.append(rakam);
-        }
+        do {
+            StringBuilder musteriNumarasi = new StringBuilder();
+            for (int i = 0; i < 12; i++) {
+                int rakam = secureRandom.nextInt(10);
+                musteriNumarasi.append(rakam);
+            }
+            generatedCustomerNumber = musteriNumarasi.toString();
+        } while (individualCustomerRepository.existsByIndividualCustomerNumber(generatedCustomerNumber));
 
-        return musteriNumarasi.toString();
+        return generatedCustomerNumber;
     }
-
 }

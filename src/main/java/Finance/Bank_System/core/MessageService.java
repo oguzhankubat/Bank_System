@@ -1,4 +1,4 @@
-package Finance.Bank_System.utilities;
+package Finance.Bank_System.core;
 
 import java.util.Locale;
 

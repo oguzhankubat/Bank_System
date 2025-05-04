@@ -17,10 +17,10 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import Finance.Bank_System.BankConstants.BankConstants;
 import Finance.Bank_System.DTO_pojo.ExternalAPICivilSystenCivilResponse;
 import Finance.Bank_System.business.requests.CreateİndividualCustomerRequest;
+import Finance.Bank_System.core.MessageService;
 import Finance.Bank_System.core.ModelMapperServices;
 import Finance.Bank_System.dataRepositories.Customer.CustomerRepository;
 import Finance.Bank_System.entities.Customer.Customer;
-import Finance.Bank_System.utilities.MessageService;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -30,14 +30,14 @@ public class CheckTcKimlikNumberRule {
     private CustomerRepository customerRepository;
     private ModelMapperServices modelMapperServices;
     private MessageService messageService;
-    
+    private CheckBeforeCreateIndividualCustomer checkBeforeCreateIndividualCustomer;
     public Customer fetchCustomerFromCivilSystem(CreateİndividualCustomerRequest createİndividualCustomerRequest) {
 
 
         Optional<Customer> existingCustomer = customerRepository.findByTcKimlikNumber(createİndividualCustomerRequest.getTcKimlikNumber());
         
         if (existingCustomer.isPresent()) {
-    
+        	checkBeforeCreateIndividualCustomer.check(existingCustomer.get(), createİndividualCustomerRequest);
             return existingCustomer.get();
         }
 
@@ -67,20 +67,14 @@ public class CheckTcKimlikNumberRule {
 
   
             if (response.statusCode() == 200) {
-            
+            	
             	
             	ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.registerModule(new JavaTimeModule());
 
                 ExternalAPICivilSystenCivilResponse civilCustomer = objectMapper.readValue(response.body(), ExternalAPICivilSystenCivilResponse.class);
                 
-                if (!civilCustomer.getBirthDate().equals(createİndividualCustomerRequest.getBirthDate())) {
-                    throw new RuntimeException(messageService.getMessage("input.is.wrong"));
-                }
-                if (civilCustomer == null || civilCustomer.getTcKimlikNumber() == null) {
-                    throw new RuntimeException(messageService.getMessage("tc.kimlik.number.is.not.exist"));
-                }
-                
+                checkBeforeCreateIndividualCustomer.check(civilCustomer, createİndividualCustomerRequest);
                 
                 Customer customer = modelMapperServices.forRequest()
                         .map(civilCustomer, Customer.class); 

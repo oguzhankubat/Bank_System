@@ -31,7 +31,7 @@ public class İndividualCustomer {
     @Column(name = "id")
     private int id;
     
-    @Column(name="individual_phone_number",length = 11,nullable = false)
+    @Column(name="individual_phone_number",length = 13,nullable = false)
     private String individualPhoneNumber;
     
     @Column(name="individual_account_password",length = 64,nullable = false)
@@ -43,7 +43,7 @@ public class İndividualCustomer {
     @Column(name="created_time")
     private LocalDateTime createdTime;
     
-    @Column(name = "individual_customer_number",unique = true,length = 9)
+    @Column(name = "individual_customer_number",unique = true,length = 12)
     private String individualCustomerNumber;
     
     @OneToMany(mappedBy = "accountİndividualCustomerNumber")

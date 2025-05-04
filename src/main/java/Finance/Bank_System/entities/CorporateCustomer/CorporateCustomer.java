@@ -34,7 +34,7 @@ public class CorporateCustomer {
     @Column(name="corporate_vkn_number",length = 10,nullable = false)
     private String vknNumber;
     
-    @Column(name="corporate_phone_number",length = 11,nullable = false)
+    @Column(name="corporate_phone_number",length = 13,nullable = false)
     private String corporatePhoneNumber;
     
     @Column(name="corporate_account_password",length = 64,nullable = false)
@@ -46,7 +46,7 @@ public class CorporateCustomer {
     @Column(name = "corporate_account_statu",length = 7)
     private String corporateAccountStatu;
     
-    @Column(name = "corporate_customer_number",unique = true,length = 12)
+    @Column(name = "corporate_customer_number",unique = true,length = 13)
     private String corporateCustomerNumber;
     
     @OneToMany(mappedBy = "accountCorporateCustomerNumber")
