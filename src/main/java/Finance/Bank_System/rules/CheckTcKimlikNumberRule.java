@@ -31,67 +31,62 @@ public class CheckTcKimlikNumberRule {
     private ModelMapperServices modelMapperServices;
     private MessageService messageService;
     private CheckBeforeCreateIndividualCustomer checkBeforeCreateIndividualCustomer;
-    public Customer fetchCustomerFromCivilSystem(CreateİndividualCustomerRequest createİndividualCustomerRequest) {
-
-
-        Optional<Customer> existingCustomer = customerRepository.findByTcKimlikNumber(createİndividualCustomerRequest.getTcKimlikNumber());
-        
-        if (existingCustomer.isPresent()) {
-        	checkBeforeCreateIndividualCustomer.check(existingCustomer.get(), createİndividualCustomerRequest);
-            return existingCustomer.get();
-        }
+    private CheckTcKimlikNumberRuleUpdateCustomerIfChanged checkTcKimlikNumberRuleUpdateCustomerIfChanged;
+    
+    public Customer fetchCustomerFromCivilSystem(CreateİndividualCustomerRequest request) {
+    	
+        Optional<Customer> existingCustomerOpt = customerRepository.findByTcKimlikNumber(request.getTcKimlikNumber());
 
         try {
-
-        	URI uri = UriComponentsBuilder
+            URI uri = UriComponentsBuilder
                     .newInstance()
                     .scheme("http")
                     .host("localhost")
                     .port(8086)
                     .path("/api/person/check")
-                    .queryParam("tcKimlikNumber", createİndividualCustomerRequest.getTcKimlikNumber())
-                    .queryParam("corporationVkn", BankConstants.BANK_VKN)  
+                    .queryParam("tcKimlikNumber", request.getTcKimlikNumber())
+                    .queryParam("corporationVkn", BankConstants.BANK_VKN)
                     .build()
                     .toUri();
 
-            
             HttpClient client = HttpClient.newHttpClient();
+            HttpRequest httpRequest = HttpRequest.newBuilder().uri(uri).GET().build();
+            HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
-           
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(uri)
-                    .GET()
-                    .build();
+            if (response.statusCode() != 200) {
+                throw new RuntimeException(messageService.getMessage("external.service.civil.registry.error") + response.statusCode());
+            }
 
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
+            ExternalAPICivilSystenCivilResponse civilCustomer =
+                    objectMapper.readValue(response.body(), ExternalAPICivilSystenCivilResponse.class);
 
-  
-            if (response.statusCode() == 200) {
-            	
-            	
-            	ObjectMapper objectMapper = new ObjectMapper();
-                objectMapper.registerModule(new JavaTimeModule());
-
-                ExternalAPICivilSystenCivilResponse civilCustomer = objectMapper.readValue(response.body(), ExternalAPICivilSystenCivilResponse.class);
+            if (existingCustomerOpt.isPresent()) {
+                Customer existingCustomer = existingCustomerOpt.get();
                 
-                checkBeforeCreateIndividualCustomer.check(civilCustomer, createİndividualCustomerRequest);
-                
-                Customer customer = modelMapperServices.forRequest()
-                        .map(civilCustomer, Customer.class); 
 
-                customer.setCreatedTime(LocalDateTime.now());
-                customer.setCustomerStatu("Active");
-        
-                customerRepository.save(customer);
-
-                return customer;
-
+                if (checkTcKimlikNumberRuleUpdateCustomerIfChanged.updateCustomerIfChanged(existingCustomer, civilCustomer)) {
+                    customerRepository.save(existingCustomer);
+                }
+                checkBeforeCreateIndividualCustomer.check(existingCustomer, request);
+                return existingCustomer;
             } else {
-                throw new RuntimeException(messageService.getMessage("external.service.error") + response.statusCode());
+                checkBeforeCreateIndividualCustomer.check(civilCustomer, request);
+
+                Customer newCustomer = modelMapperServices.forRequest().map(civilCustomer, Customer.class);
+                newCustomer.setCreatedTime(LocalDateTime.now());
+                newCustomer.setCustomerStatu("Active");
+
+                customerRepository.save(newCustomer);
+                return newCustomer;
             }
 
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(messageService.getMessage("external.service.error"), e);
+            throw new RuntimeException(messageService.getMessage("external.service.civil.registry.error"), e);
         }
+        
     }
 }
+    
+    
+

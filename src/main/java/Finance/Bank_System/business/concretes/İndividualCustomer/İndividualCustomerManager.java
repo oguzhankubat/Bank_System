@@ -28,6 +28,7 @@ public class İndividualCustomerManager implements İndividualCustomerService{
 	public final CheckExistIndividualCustomer checkExistIndividualCustomer;
 	public final CheckExistIndividualCustomerPhoneNumber checkExistIndividualCustomerPhoneNumber;
 	public final İndividualCustomerNumberGenerator individualCustomerNumberGenerator;
+	
 	@Override
 	public AfterCreateİndividualCustomerResponse createİndividualCustomer(
 			CreateİndividualCustomerRequest createİndividualCustomerRequest) {
