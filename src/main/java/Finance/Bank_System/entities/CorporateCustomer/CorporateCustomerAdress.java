@@ -28,14 +28,14 @@ public class CorporateCustomerAdress {
     @Column(name = "adress_statu",length =7)
     private String adressStatu;
     
-    @Column(name = "adress_name",length = 7)
+    @Column(name = "adress_name",length = 10)
     private String adressName;
     
     @Column(name = "address_type",length = 10)
     private String addressType;
 
     
-    @Column(name = "address_detail",length = 40)
+    @Column(name = "address_detail",length = 100)
     private String addressDetail;
     
     @ManyToOne

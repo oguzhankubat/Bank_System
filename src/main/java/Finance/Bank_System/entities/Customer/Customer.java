@@ -51,6 +51,9 @@ public class Customer {
     @Column(name="created_time")
     private LocalDateTime createdTime;
     
+    @Column(name = "residence_adress",nullable = false,length = 150)
+    private String residenceAdress;
+    
     @Column(name = "customer_statu",length = 7)
     private String customerStatu;
     
