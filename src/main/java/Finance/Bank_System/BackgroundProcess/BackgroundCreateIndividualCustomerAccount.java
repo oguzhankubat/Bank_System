@@ -27,7 +27,6 @@ public class BackgroundCreateIndividualCustomerAccount {
 
     private final MessageService messageService;
     private final İndividualCustomerRepository individualCustomerRepository;
-
     public WrapperİndividualCustomerAccount createİndividualAccount(CreateİndividualCustomerAccountRequest createİndividualCustomerAccountRequest) {
 
         try {
