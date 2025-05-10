@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 import Finance.Bank_System.business.abstracts.individualCustomer.İndividualCustomerService;
-import Finance.Bank_System.business.requests.CreateİndividualCustomerRequest;
-import Finance.Bank_System.business.responses.AfterCreateİndividualCustomerResponse;
+import Finance.Bank_System.business.requests.İndividualCustomer.CreateİndividualCustomerRequest;
+import Finance.Bank_System.business.responses.İndividualCustomer.AfterCreateİndividualCustomerResponse;
 import Finance.Bank_System.core.ModelMapperServices;
 import Finance.Bank_System.dataRepositories.İndividualCustomer.İndividualCustomerRepository;
 import Finance.Bank_System.entities.Customer.Customer;

@@ -35,6 +35,9 @@ public class İndividualCustomerAccount {
     @Column(name = "account_balance")
     private int accountBalance;
     
+    @Column(name="account_token",length = 36,unique = true)
+    private String accountToken;
+    
     @Column(name = "account_branch_code",length = 4)
     private String accountBranchCode;
     
@@ -47,7 +50,7 @@ public class İndividualCustomerAccount {
     @Column(name = "account_currency",length = 3,nullable = false)
     private String accountCurrency;
     
-    @Column(name = "account_statu",length = 7)
+    @Column(name = "account_statu",length = 10)
     private String accountStatu;
 
     @Column(name="created_time")

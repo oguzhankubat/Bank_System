@@ -18,12 +18,14 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "individual_customers")
+@ToString(exclude = "associatedİndividualCustomer")
 public class İndividualCustomer {
 	
     @Id
@@ -37,7 +39,7 @@ public class İndividualCustomer {
     @Column(name="individual_account_password",length = 64,nullable = false)
     private String individualAccountPassword;
     
-    @Column(name = "individual_account_statu",length = 7)
+    @Column(name = "individual_account_statu",length = 10)
     private String individualAccountStatu;
     
     @Column(name="created_time")

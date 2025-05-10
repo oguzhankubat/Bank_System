@@ -5,14 +5,14 @@ import java.util.Locale;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class MessageService {
 
     private final MessageSource messageSource;
 
-    public MessageService(MessageSource messageSource) {
-        this.messageSource = messageSource;
-    }
 
     public String getMessage(String key) {
         return getMessage(key, null);

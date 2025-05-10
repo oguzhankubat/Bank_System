@@ -1,5 +1,9 @@
 package Finance.Bank_System.business.abstracts.individualCustomer;
 
+import Finance.Bank_System.business.requests.İndividualCustomer.CreateİndividualCustomerAccountRequest;
+
 public interface İndividualCustomerAccountService {
+	
+	String createİndividualCustomerAccount(CreateİndividualCustomerAccountRequest createİndividualCustomerAccountRequest);
 
 }

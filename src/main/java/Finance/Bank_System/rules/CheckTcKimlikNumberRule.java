@@ -16,7 +16,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import Finance.Bank_System.BankConstants.BankConstants;
 import Finance.Bank_System.DTO_pojo.ExternalAPICivilSystenCivilResponse;
-import Finance.Bank_System.business.requests.CreateİndividualCustomerRequest;
+import Finance.Bank_System.business.requests.İndividualCustomer.CreateİndividualCustomerRequest;
 import Finance.Bank_System.core.MessageService;
 import Finance.Bank_System.core.ModelMapperServices;
 import Finance.Bank_System.dataRepositories.Customer.CustomerRepository;
@@ -57,10 +57,12 @@ public class CheckTcKimlikNumberRule {
                 throw new RuntimeException(messageService.getMessage("external.service.civil.registry.error") + response.statusCode());
             }
 
-            ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+            
             ExternalAPICivilSystenCivilResponse civilCustomer =
                     objectMapper.readValue(response.body(), ExternalAPICivilSystenCivilResponse.class);
-
+            
             if (existingCustomerOpt.isPresent()) {
                 Customer existingCustomer = existingCustomerOpt.get();
                 

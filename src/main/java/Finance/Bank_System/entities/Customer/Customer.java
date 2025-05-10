@@ -17,13 +17,14 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "customers")
-
+@ToString(exclude = "individualCustomer")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

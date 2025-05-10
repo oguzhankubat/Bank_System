@@ -12,4 +12,6 @@ public interface İndividualCustomerRepository extends JpaRepository<İndividual
 	boolean existsByIndividualPhoneNumber(String phoneNumber);
 	
 	boolean existsByIndividualCustomerNumber(String individualCustomerNumber);
+	
+	İndividualCustomer findByAssociatedİndividualCustomer_TcKimlikNumber(String tcKimlikNumber);
 }

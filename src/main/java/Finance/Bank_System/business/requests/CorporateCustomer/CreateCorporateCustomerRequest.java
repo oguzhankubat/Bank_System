@@ -1,4 +1,4 @@
-package Finance.Bank_System.business.requests;
+package Finance.Bank_System.business.requests.CorporateCustomer;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
