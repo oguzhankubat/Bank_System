@@ -9,6 +9,7 @@ import Finance.Bank_System.DTO_pojo.ExternalFastSystemResponse;
 import Finance.Bank_System.DTO_pojo.WrapperİndividualCustomerAccount;
 import Finance.Bank_System.business.abstracts.individualCustomer.İndividualCustomerAccountService;
 import Finance.Bank_System.business.requests.İndividualCustomer.CreateİndividualCustomerAccountRequest;
+import Finance.Bank_System.core.MessageService;
 import Finance.Bank_System.core.ModelMapperServices;
 import Finance.Bank_System.dataRepositories.İndividualCustomer.İndividualCustomerAccountRepository;
 import Finance.Bank_System.entities.İndividualCustomer.İndividualCustomer;
@@ -22,6 +23,7 @@ public class İndividualCustomerAccountManager implements İndividualCustomerAcc
 	private final BackgroundCreateIndividualCustomerAccount backgroundCreateIndividualCustomerAccount;
 	private final İndividualCustomerAccountRepository individualCustomerAccountRepository;
 	private final ModelMapperServices modelMapperServices;
+	private final MessageService messageService;
 	
 	@Override
 	@Transactional
@@ -31,9 +33,6 @@ public class İndividualCustomerAccountManager implements İndividualCustomerAcc
 		WrapperİndividualCustomerAccount wrapperObject= backgroundCreateIndividualCustomerAccount.createİndividualAccount(createİndividualCustomerAccountRequest);
 		İndividualCustomer individualCustomerAccountRequestFromFrontEnd=wrapperObject.getIndividualCustomerNumber();
 		ExternalFastSystemResponse fastSystemResponse=wrapperObject.getExternalFastSystemResponse();
-		
-		System.out.println(fastSystemResponse);
-		System.out.println(individualCustomerAccountRequestFromFrontEnd);
 		
 		İndividualCustomerAccount account=modelMapperServices.forRequest()
 				.map(createİndividualCustomerAccountRequest, İndividualCustomerAccount.class);
@@ -47,7 +46,7 @@ public class İndividualCustomerAccountManager implements İndividualCustomerAcc
 		
 		individualCustomerAccountRepository.save(account);
 		
-		return "Hesap başarıyla oluşturuldu.";
+		return messageService.getMessage("individual.account.created");
 	}
 
 }
