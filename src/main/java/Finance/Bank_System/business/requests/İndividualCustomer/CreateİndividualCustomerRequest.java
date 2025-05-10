@@ -25,7 +25,6 @@ public class CreateİndividualCustomerRequest{
 	private String individualPhoneNumber;
 	
 	@NotNull
-	@NotBlank
 	private LocalDate birthDate;
 	
 	@NotNull

@@ -15,11 +15,11 @@ public class BankSystemApplication {
 		SpringApplication.run(BankSystemApplication.class, args);
 	}
 	
-	/*@ExceptionHandler
+	@ExceptionHandler
 	public ProblemDetails handleExceptionRuntime(RuntimeException runtimeException) {
 		ProblemDetails problemDetails =new ProblemDetails();
 		problemDetails.setMessage(runtimeException.getMessage());
 		return problemDetails;
-	}*/
+	}
 
 }
