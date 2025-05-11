@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
 
+import Finance.Bank_System.BackgroundProcess.BackgroundActiveİndividualCustomerProcess;
 import Finance.Bank_System.BackgroundProcess.BackgroundCreateIndividualCustomerAccount;
 import Finance.Bank_System.DTO_pojo.ExternalFastSystemResponse;
 import Finance.Bank_System.DTO_pojo.WrapperİndividualCustomerAccount;
@@ -24,6 +25,7 @@ public class İndividualCustomerAccountManager implements İndividualCustomerAcc
 	private final İndividualCustomerAccountRepository individualCustomerAccountRepository;
 	private final ModelMapperServices modelMapperServices;
 	private final MessageService messageService;
+	private final BackgroundActiveİndividualCustomerProcess backgroundActiveİndividualCustomerProcess;
 	
 	@Override
 	@Transactional
@@ -45,6 +47,8 @@ public class İndividualCustomerAccountManager implements İndividualCustomerAcc
 		account.setAccountİndividualCustomerNumber(individualCustomerAccountRequestFromFrontEnd);
 		
 		individualCustomerAccountRepository.save(account);
+		
+		backgroundActiveİndividualCustomerProcess.activateIndividualAccount(account.getAccountIban(), account.getAccountToken());
 		
 		return messageService.getMessage("individual.account.created");
 	}
