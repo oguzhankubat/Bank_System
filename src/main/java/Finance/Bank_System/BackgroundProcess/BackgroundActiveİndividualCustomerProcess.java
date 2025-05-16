@@ -18,7 +18,6 @@ public class BackgroundActiveİndividualCustomerProcess {
 	
 	public String activateIndividualAccount(String iban, String token) {
         try {
-        		Thread.sleep(5000);
         		URI uri = URI.create("http://localhost:8088/api/civilAccount/enableAccount");
 
           

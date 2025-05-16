@@ -1,4 +1,5 @@
-package Finance.Bank_System.entities.CorporateCustomer.Account;
+package Finance.Bank_System.entities.Account;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,23 +17,23 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "corporate_account_transactions")
-public class CorporateAccountTransaction {
+@Table(name = "account_transactions")
+public class CustomerEntityAccountTransaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
     
-    @Column(name = "transaction_type",length = 7)//para gönderme alma
+    @Column(name = "transaction_type",length = 7)
     private String transactionType;
     
     @Column(name = "transaction_balance")
     private String transactionBalance;
     
-    @Column(name = "transaction_description",length = 50)
+    @Column(name = "transaction_description",length = 150)
     private String transactionDescription;
     
     @ManyToOne
-    @JoinColumn(name = "transaction_account_number", referencedColumnName = "account_number")
-    private CorporateCustomerAccount corporateAccountTransaction;
+    @JoinColumn(name = "account_number_transaction", referencedColumnName = "account_number")
+    private CustomerEntityAccount customerEntityAccountTransaction;
 } 

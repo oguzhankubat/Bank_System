@@ -4,13 +4,14 @@ import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
 
+import Finance.Bank_System.BankConstants.BankConstants;
 import Finance.Bank_System.business.abstracts.individualCustomer.İndividualCustomerService;
 import Finance.Bank_System.business.requests.İndividualCustomer.CreateİndividualCustomerRequest;
 import Finance.Bank_System.business.responses.İndividualCustomer.AfterCreateİndividualCustomerResponse;
 import Finance.Bank_System.core.ModelMapperServices;
-import Finance.Bank_System.dataRepositories.İndividualCustomer.İndividualCustomerRepository;
+import Finance.Bank_System.dataRepositories.CustomerEntity.CustomerEntityRepository;
 import Finance.Bank_System.entities.Customer.Customer;
-import Finance.Bank_System.entities.İndividualCustomer.İndividualCustomer;
+import Finance.Bank_System.entities.CustomerEntity.CustomerEntity;
 import Finance.Bank_System.rules.CheckExistIndividualCustomer;
 import Finance.Bank_System.rules.CheckExistIndividualCustomerPhoneNumber;
 import Finance.Bank_System.rules.CheckTcKimlikNumberRule;
@@ -24,7 +25,7 @@ public class İndividualCustomerManager implements İndividualCustomerService{
 	
 	public final CheckTcKimlikNumberRule checkTcKimlikNumberRule;
 	public final ModelMapperServices modelMapperServices;
-	public final İndividualCustomerRepository individualCustomerRepository;
+	public final CustomerEntityRepository customerEntityRepository;
 	public final CheckExistIndividualCustomer checkExistIndividualCustomer;
 	public final CheckExistIndividualCustomerPhoneNumber checkExistIndividualCustomerPhoneNumber;
 	public final İndividualCustomerNumberGenerator individualCustomerNumberGenerator;
@@ -36,20 +37,20 @@ public class İndividualCustomerManager implements İndividualCustomerService{
 		Customer customer = checkTcKimlikNumberRule.fetchCustomerFromCivilSystem(createİndividualCustomerRequest);
 		
 		checkExistIndividualCustomer.exists(customer);
-		checkExistIndividualCustomerPhoneNumber.exists(createİndividualCustomerRequest.getIndividualPhoneNumber());
+		checkExistIndividualCustomerPhoneNumber.exists(createİndividualCustomerRequest.getCustomerEntityPhoneNumber());
 		
-		İndividualCustomer individualCustomer = modelMapperServices.forRequest()
-                .map(createİndividualCustomerRequest, İndividualCustomer.class);
+		CustomerEntity individualCustomer = modelMapperServices.forRequest()
+                .map(createİndividualCustomerRequest, CustomerEntity.class);
 		
-		individualCustomer.setIndividualCustomerNumber(individualCustomerNumberGenerator.musteriNumarasiOlustur());
-		individualCustomer.setAssociatedİndividualCustomer(customer);
+		individualCustomer.setCustomerEntityNumber(individualCustomerNumberGenerator.musteriNumarasiOlustur());
+		individualCustomer.setCustomerEntity(customer);
 		individualCustomer.setCreatedTime(LocalDateTime.now());
-		individualCustomer.setIndividualAccountStatu("Active");
-		individualCustomer.setIndividualAccountPassword(HashGenerator.sha256Hash(createİndividualCustomerRequest.getIndividualAccountPassword()));
+		individualCustomer.setCustomerEntityStatu("Active");
+		individualCustomer.setCustomerEntityPassword(HashGenerator.sha256Hash(createİndividualCustomerRequest.getCustomerEntityPassword()));
+		individualCustomer.setCustomerType(BankConstants.CUSTOMER_TYPE_INDIVIDUAL.getValue());
 		
-		
-		individualCustomerRepository.save(individualCustomer);
-		// araya başka parametreler eklenebilir. 
+		customerEntityRepository.save(individualCustomer);
+
 		
 		AfterCreateİndividualCustomerResponse message=new AfterCreateİndividualCustomerResponse("Customer is created succesfully");
 		return message;

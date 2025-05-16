@@ -4,27 +4,23 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import Finance.Bank_System.entities.CorporateCustomer.CorporateCustomer;
-import Finance.Bank_System.entities.İndividualCustomer.İndividualCustomer;
+import Finance.Bank_System.entities.CustomerEntity.CustomerEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "customers")
-@ToString(exclude = "individualCustomer")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,10 +54,8 @@ public class Customer {
     @Column(name = "customer_statu",length = 7)
     private String customerStatu;
     
-    @OneToOne(mappedBy = "associatedİndividualCustomer")
-    private İndividualCustomer individualCustomer;
+    @OneToMany(mappedBy = "customerEntity")
+    private List<CustomerEntity> customerEntities;
     
-    @OneToMany(mappedBy = "associatedCorporateCustomer")
-    private List<CorporateCustomer>corporateCustomer;
     
 }

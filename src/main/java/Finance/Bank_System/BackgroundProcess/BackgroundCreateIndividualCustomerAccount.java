@@ -16,8 +16,8 @@ import Finance.Bank_System.DTO_pojo.ExternalFastSystemResponse;
 import Finance.Bank_System.DTO_pojo.WrapperİndividualCustomerAccount;
 import Finance.Bank_System.business.requests.İndividualCustomer.CreateİndividualCustomerAccountRequest;
 import Finance.Bank_System.core.MessageService;
-import Finance.Bank_System.dataRepositories.İndividualCustomer.İndividualCustomerRepository;
-import Finance.Bank_System.entities.İndividualCustomer.İndividualCustomer;
+import Finance.Bank_System.dataRepositories.CustomerEntity.CustomerEntityRepository;
+import Finance.Bank_System.entities.CustomerEntity.CustomerEntity;
 import Finance.Bank_System.utilities.AccountNumberGenerator;
 import lombok.AllArgsConstructor;
 
@@ -26,7 +26,7 @@ import lombok.AllArgsConstructor;
 public class BackgroundCreateIndividualCustomerAccount {
 
     private final MessageService messageService;
-    private final İndividualCustomerRepository individualCustomerRepository;
+    private final CustomerEntityRepository customerEntityRepository;
     public WrapperİndividualCustomerAccount createİndividualAccount(CreateİndividualCustomerAccountRequest createİndividualCustomerAccountRequest) {
 
         try {
@@ -40,7 +40,7 @@ public class BackgroundCreateIndividualCustomerAccount {
                     createİndividualCustomerAccountRequest.getAccountCurrency(),
                     createİndividualCustomerAccountRequest.getBranchCode(),
                     accountNumber,
-                    BankConstants.accountOwnershipBank);
+                    BankConstants.ACCOUNT_OWNERSHIP_BANK.getValue());
 
             HttpClient client = HttpClient.newHttpClient();
 
@@ -62,7 +62,7 @@ public class BackgroundCreateIndividualCustomerAccount {
             ExternalFastSystemResponse externalFastSystemResponse = objectMapper.readValue(response.body(), ExternalFastSystemResponse.class);
 
         
-            İndividualCustomer individualCustomer = individualCustomerRepository.findByAssociatedİndividualCustomer_TcKimlikNumber(createİndividualCustomerAccountRequest.getTcKimlikNumber());
+            CustomerEntity individualCustomer = customerEntityRepository.findByCustomerEntity_TcKimlikNumber(createİndividualCustomerAccountRequest.getTcKimlikNumber());
 
             return new WrapperİndividualCustomerAccount(individualCustomer, externalFastSystemResponse,accountNumber);
 

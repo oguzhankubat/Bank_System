@@ -22,7 +22,7 @@ public class CreateİndividualCustomerRequest{
 	@NotNull
 	@NotBlank
 	@Size(min=11,max = 13)
-	private String individualPhoneNumber;
+	private String customerEntityPhoneNumber;
 	
 	@NotNull
 	private LocalDate birthDate;
@@ -30,5 +30,5 @@ public class CreateİndividualCustomerRequest{
 	@NotNull
 	@NotBlank
 	@Size(min=6,max = 6)
-	private String individualAccountPassword;
+	private String customerEntityPassword;
 }
