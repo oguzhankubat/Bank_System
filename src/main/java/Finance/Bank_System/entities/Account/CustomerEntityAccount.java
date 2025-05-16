@@ -39,7 +39,7 @@ public class CustomerEntityAccount {
     private String accountIban;
 
     @Column(name = "account_balance")
-    private int accountBalance;
+    private double accountBalance;
 
     @Column(name = "account_token", length = 36, unique = true)
     private String accountToken;

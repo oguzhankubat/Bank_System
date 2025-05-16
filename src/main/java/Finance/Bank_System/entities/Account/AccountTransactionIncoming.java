@@ -32,8 +32,6 @@ public class AccountTransactionIncoming {
     @Column(name = "id")
     private int id;
     
-    @Column(name = "transaction_type",length = 9)
-    private String transactionType;
     
     @Column(name = "transaction_description",length = 150)
     private String transactionDescription;

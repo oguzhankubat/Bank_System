@@ -37,7 +37,6 @@ public class AccountTransactionOutgoing{
     @Column(name = "transaction_amount", nullable = false)
     private double transactionAmount;
 
-
     @Column(name = "transaction_number", length = 36, nullable = false, unique = true)
     private String transactionNumber;
     
