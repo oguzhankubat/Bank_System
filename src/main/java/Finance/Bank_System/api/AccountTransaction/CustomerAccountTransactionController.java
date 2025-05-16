@@ -4,20 +4,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import Finance.Bank_System.business.abstracts.Common.CivilAccountTransactionService;
+import Finance.Bank_System.business.abstracts.Common.CustomerAccountTransactionService;
 import Finance.Bank_System.business.requests.CommonRequests.AccountTransactionToBankSystemRequests;
 import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/accountTransaction")
-public class CivilAccountTransactionController {
+public class CustomerAccountTransactionController {
 	
-	private final CivilAccountTransactionService civilAccountTransactionService;
+	private final CustomerAccountTransactionService customerAccountTransactionService;
 	
 	@PostMapping("/process")
 	public String accountTransactionProcess(AccountTransactionToBankSystemRequests request) {
-		return civilAccountTransactionService.civilAccountTransactionProcess(request);
+		return customerAccountTransactionService.customerAccountTransactionProcess(request);
 	}
 
 }

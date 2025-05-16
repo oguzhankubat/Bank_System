@@ -38,7 +38,7 @@ public class CustomerEntityAdress {
     private String addressDetail;
     
     @ManyToOne
-    @JoinColumn(name = "customer_entity_number_adress", referencedColumnName = "customer_entity_number")
+    @JoinColumn(name = "adress_customer_entity_number", referencedColumnName = "customer_entity_number")
     private CustomerEntity customerEntityAdress;
     
 }

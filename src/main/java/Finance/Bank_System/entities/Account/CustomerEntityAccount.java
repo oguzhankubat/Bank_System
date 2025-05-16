@@ -63,8 +63,8 @@ public class CustomerEntityAccount {
     private LocalDateTime createdTime;
 
     @ManyToOne
-    @JoinColumn(name = "customer_entity_number_account", referencedColumnName = "customer_entity_number", updatable = false)
-    private CustomerEntity customerEntitiesAccounts;
+    @JoinColumn(name = "account_customer_entity_number", referencedColumnName = "customer_entity_number", updatable = false)
+    private CustomerEntity customerEntityAccount;
 
     @OneToMany(mappedBy = "customerEntityAccountTransaction")
     private List<CustomerEntityAccountTransaction> customerEntitiesAccountTransactions;

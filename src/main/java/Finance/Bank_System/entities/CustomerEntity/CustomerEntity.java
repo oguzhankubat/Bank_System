@@ -54,7 +54,7 @@ public class CustomerEntity {
     @Column(name = "customer_entity_number", unique = true, length = 13)
     private String customerEntityNumber;
 
-    @Column(name = "customer_type")
+    @Column(name = "customer_type",length = 11)
     private String customerType;
 
     @OneToMany(mappedBy = "customerEntityAccount")

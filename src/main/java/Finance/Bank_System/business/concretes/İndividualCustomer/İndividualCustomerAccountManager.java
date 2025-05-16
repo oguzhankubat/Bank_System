@@ -12,9 +12,9 @@ import Finance.Bank_System.business.abstracts.individualCustomer.İndividualCust
 import Finance.Bank_System.business.requests.İndividualCustomer.CreateİndividualCustomerAccountRequest;
 import Finance.Bank_System.core.MessageService;
 import Finance.Bank_System.core.ModelMapperServices;
-import Finance.Bank_System.dataRepositories.CustomerEntity.İndividualCustomerAccountRepository;
-import Finance.Bank_System.entities.Account.İndividualCustomerAccount;
-import Finance.Bank_System.entities.CustomerEntity.İndividualCustomer;
+import Finance.Bank_System.dataRepositories.CustomerEntity.CustomerEntityAccountRepository;
+import Finance.Bank_System.entities.Account.CustomerEntityAccount;
+import Finance.Bank_System.entities.CustomerEntity.CustomerEntity;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
@@ -22,7 +22,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class İndividualCustomerAccountManager implements İndividualCustomerAccountService{
 	private final BackgroundCreateIndividualCustomerAccount backgroundCreateIndividualCustomerAccount;
-	private final İndividualCustomerAccountRepository individualCustomerAccountRepository;
+	private final CustomerEntityAccountRepository customerEntityAccountRepository;
 	private final ModelMapperServices modelMapperServices;
 	private final MessageService messageService;
 	private final BackgroundActiveİndividualCustomerProcess backgroundActiveİndividualCustomerProcess;
@@ -33,20 +33,20 @@ public class İndividualCustomerAccountManager implements İndividualCustomerAcc
 			CreateİndividualCustomerAccountRequest createİndividualCustomerAccountRequest) {
 		
 		WrapperİndividualCustomerAccount wrapperObject= backgroundCreateIndividualCustomerAccount.createİndividualAccount(createİndividualCustomerAccountRequest);
-		İndividualCustomer individualCustomerAccountRequestFromFrontEnd=wrapperObject.getIndividualCustomerNumber();
+		CustomerEntity individualCustomerAccountRequestFromFrontEnd=wrapperObject.getCustomerEntityNumber();
 		ExternalFastSystemResponse fastSystemResponse=wrapperObject.getExternalFastSystemResponse();
 		
-		İndividualCustomerAccount account=modelMapperServices.forRequest()
-				.map(createİndividualCustomerAccountRequest, İndividualCustomerAccount.class);
+		CustomerEntityAccount account=modelMapperServices.forRequest()
+				.map(createİndividualCustomerAccountRequest, CustomerEntityAccount.class);
 		account.setAccountBalance(0);
 		account.setAccountIban(fastSystemResponse.getAccountIBAN());
 		account.setAccountToken(fastSystemResponse.getAccountToken());
 		account.setAccountStatu("Active");
 		account.setCreatedTime(LocalDateTime.now());
 		account.setAccountNumber(wrapperObject.getAccountNumber() );
-		account.setAccountİndividualCustomerNumber(individualCustomerAccountRequestFromFrontEnd);
+		account.setCustomerEntityAccount(individualCustomerAccountRequestFromFrontEnd);
 		
-		individualCustomerAccountRepository.save(account);
+		customerEntityAccountRepository.save(account);
 		
 		backgroundActiveİndividualCustomerProcess.activateIndividualAccount(account.getAccountIban(), account.getAccountToken());
 		
