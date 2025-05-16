@@ -4,14 +4,14 @@ import java.security.SecureRandom;
 
 import org.springframework.stereotype.Component;
 
-import Finance.Bank_System.dataRepositories.İndividualCustomer.İndividualCustomerRepository;
+import Finance.Bank_System.dataRepositories.CustomerEntity.CustomerEntityRepository;
 import lombok.AllArgsConstructor;
 
 @Component
 @AllArgsConstructor
 public class İndividualCustomerNumberGenerator {
 
-    private final İndividualCustomerRepository individualCustomerRepository;
+    private final CustomerEntityRepository customerEntityRepository;
 
     public String musteriNumarasiOlustur() {
         SecureRandom secureRandom = new SecureRandom();
@@ -24,7 +24,7 @@ public class İndividualCustomerNumberGenerator {
                 musteriNumarasi.append(rakam);
             }
             generatedCustomerNumber = musteriNumarasi.toString();
-        } while (individualCustomerRepository.existsByIndividualCustomerNumber(generatedCustomerNumber));
+        } while (customerEntityRepository.existsByCustomerEntityNumber(generatedCustomerNumber));
 
         return generatedCustomerNumber;
     }

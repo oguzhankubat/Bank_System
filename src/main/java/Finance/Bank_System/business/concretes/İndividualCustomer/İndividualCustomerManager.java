@@ -8,9 +8,9 @@ import Finance.Bank_System.business.abstracts.individualCustomer.İndividualCust
 import Finance.Bank_System.business.requests.İndividualCustomer.CreateİndividualCustomerRequest;
 import Finance.Bank_System.business.responses.İndividualCustomer.AfterCreateİndividualCustomerResponse;
 import Finance.Bank_System.core.ModelMapperServices;
-import Finance.Bank_System.dataRepositories.İndividualCustomer.İndividualCustomerRepository;
+import Finance.Bank_System.dataRepositories.CustomerEntity.İndividualCustomerRepository;
 import Finance.Bank_System.entities.Customer.Customer;
-import Finance.Bank_System.entities.İndividualCustomer.İndividualCustomer;
+import Finance.Bank_System.entities.CustomerEntity.İndividualCustomer;
 import Finance.Bank_System.rules.CheckExistIndividualCustomer;
 import Finance.Bank_System.rules.CheckExistIndividualCustomerPhoneNumber;
 import Finance.Bank_System.rules.CheckTcKimlikNumberRule;

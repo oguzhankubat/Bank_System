@@ -12,9 +12,9 @@ import Finance.Bank_System.business.abstracts.individualCustomer.İndividualCust
 import Finance.Bank_System.business.requests.İndividualCustomer.CreateİndividualCustomerAccountRequest;
 import Finance.Bank_System.core.MessageService;
 import Finance.Bank_System.core.ModelMapperServices;
-import Finance.Bank_System.dataRepositories.İndividualCustomer.İndividualCustomerAccountRepository;
-import Finance.Bank_System.entities.İndividualCustomer.İndividualCustomer;
-import Finance.Bank_System.entities.İndividualCustomer.Account.İndividualCustomerAccount;
+import Finance.Bank_System.dataRepositories.CustomerEntity.İndividualCustomerAccountRepository;
+import Finance.Bank_System.entities.Account.İndividualCustomerAccount;
+import Finance.Bank_System.entities.CustomerEntity.İndividualCustomer;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 

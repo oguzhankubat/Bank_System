@@ -16,8 +16,8 @@ import Finance.Bank_System.DTO_pojo.ExternalFastSystemResponse;
 import Finance.Bank_System.DTO_pojo.WrapperİndividualCustomerAccount;
 import Finance.Bank_System.business.requests.İndividualCustomer.CreateİndividualCustomerAccountRequest;
 import Finance.Bank_System.core.MessageService;
-import Finance.Bank_System.dataRepositories.İndividualCustomer.İndividualCustomerRepository;
-import Finance.Bank_System.entities.İndividualCustomer.İndividualCustomer;
+import Finance.Bank_System.dataRepositories.CustomerEntity.İndividualCustomerRepository;
+import Finance.Bank_System.entities.CustomerEntity.İndividualCustomer;
 import Finance.Bank_System.utilities.AccountNumberGenerator;
 import lombok.AllArgsConstructor;
 
