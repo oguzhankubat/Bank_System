@@ -66,7 +66,10 @@ public class CustomerEntityAccount {
     @JoinColumn(name = "account_customer_entity_number", referencedColumnName = "customer_entity_number", updatable = false)
     private CustomerEntity customerEntityAccount;
 
-    @OneToMany(mappedBy = "customerEntityAccountTransaction")
-    private List<CustomerEntityAccountTransaction> customerEntitiesAccountTransactions;
+    @OneToMany(mappedBy = "customerEntityAccountTransactionIncoming")
+    private List<AccountTransactionIncoming> customerEntitiesAccountTransactionsIncoming;
+    
+    @OneToMany(mappedBy = "customerEntityAccountTransactionOutgoing")
+    private List<AccountTransactionOutgoing> customerEntitiesAccountTransactionsOutgoing;
 
 }

@@ -12,7 +12,7 @@ import Finance.Bank_System.business.abstracts.individualCustomer.İndividualCust
 import Finance.Bank_System.business.requests.İndividualCustomer.CreateİndividualCustomerAccountRequest;
 import Finance.Bank_System.core.MessageService;
 import Finance.Bank_System.core.ModelMapperServices;
-import Finance.Bank_System.dataRepositories.CustomerEntity.CustomerEntityAccountRepository;
+import Finance.Bank_System.dataRepositories.CustomerEntity.AccountRepository;
 import Finance.Bank_System.entities.Account.CustomerEntityAccount;
 import Finance.Bank_System.entities.CustomerEntity.CustomerEntity;
 import jakarta.transaction.Transactional;
@@ -22,7 +22,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class İndividualCustomerAccountManager implements İndividualCustomerAccountService{
 	private final BackgroundCreateIndividualCustomerAccount backgroundCreateIndividualCustomerAccount;
-	private final CustomerEntityAccountRepository customerEntityAccountRepository;
+	private final AccountRepository AccountRepository;
 	private final ModelMapperServices modelMapperServices;
 	private final MessageService messageService;
 	private final BackgroundActiveİndividualCustomerProcess backgroundActiveİndividualCustomerProcess;
@@ -46,7 +46,7 @@ public class İndividualCustomerAccountManager implements İndividualCustomerAcc
 		account.setAccountNumber(wrapperObject.getAccountNumber() );
 		account.setCustomerEntityAccount(individualCustomerAccountRequestFromFrontEnd);
 		
-		customerEntityAccountRepository.save(account);
+		AccountRepository.save(account);
 		
 		backgroundActiveİndividualCustomerProcess.activateIndividualAccount(account.getAccountIban(), account.getAccountToken());
 		
