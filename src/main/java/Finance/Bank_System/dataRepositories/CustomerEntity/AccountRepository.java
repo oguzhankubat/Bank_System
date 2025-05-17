@@ -10,4 +10,6 @@ public interface AccountRepository extends JpaRepository<CustomerEntityAccount, 
 	
 	
 	Optional<CustomerEntityAccount> findByAccountIban(String accountIban);
+	
+	boolean existsByAccountToken(String accountToken);
 }

@@ -23,11 +23,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(
-    name = "accounts",
-    indexes = {
-        @Index(name = "idx_account_number", columnList = "account_number")
-    }
-)
+	    name = "accounts",
+	    indexes = {
+	        @Index(name = "idx_account_number", columnList = "account_number"),
+	        @Index(name = "idx_account_token", columnList = "account_token")
+	    }
+	)
 public class CustomerEntityAccount {
 
     @Id

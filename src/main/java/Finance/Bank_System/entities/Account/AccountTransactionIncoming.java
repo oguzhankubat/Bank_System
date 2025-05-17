@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(
-	    name = "account_transactions",
+	    name = "account_transactions_incoming",
 	    indexes = {
 	        @Index(name = "idx_transaction_incoming_account_number", columnList = "transaction_incoming_account_number")
 	    }

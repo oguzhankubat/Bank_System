@@ -2,6 +2,7 @@ package Finance.Bank_System;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -20,6 +21,30 @@ public class BankSystemApplication {
 		ProblemDetails problemDetails =new ProblemDetails();
 		problemDetails.setMessage(runtimeException.getMessage());
 		return problemDetails;
+	}
+	
+	@ExceptionHandler
+	public ProblemDetails handleExceptionMethod(MethodArgumentNotValidException methodArgumentNotValidException) {
+	    ProblemDetails problemDetails = new ProblemDetails();
+
+	    StringBuilder errorMessageBuilder = new StringBuilder();
+	    
+
+	    methodArgumentNotValidException.getBindingResult().getFieldErrors().forEach(fieldError -> {
+	        errorMessageBuilder.append(fieldError.getField())
+	                .append(": ")
+	                .append(fieldError.getDefaultMessage())
+	                .append("; ");
+	    });
+
+
+	    if (errorMessageBuilder.length() == 0) {
+	        errorMessageBuilder.append("Geçersiz giriş!");
+	    }
+
+	    problemDetails.setMessage(errorMessageBuilder.toString().trim());
+	    
+	    return problemDetails;
 	}
 
 }

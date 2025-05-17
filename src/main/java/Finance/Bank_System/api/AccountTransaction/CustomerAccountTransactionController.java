@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import Finance.Bank_System.business.abstracts.Common.AccountTransactionIncomingService;
 import Finance.Bank_System.business.abstracts.Common.AccountTransactionOutgoingService;
-import Finance.Bank_System.business.requests.CommonRequests.AccountTransactionToBankSystemRequests;
+import Finance.Bank_System.business.requests.CommonRequests.AccountTransactionToBankSystemRequest;
 import Finance.Bank_System.business.requests.CommonRequests.AccountTransactionToFastSystemRequest;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
@@ -21,7 +21,7 @@ public class CustomerAccountTransactionController {
 	private final AccountTransactionOutgoingService accountTransactionOutgoingService;
 	
 	@PostMapping("/incoming")
-	public String accountTransactionIncomingProcess(@Valid @RequestBody AccountTransactionToBankSystemRequests request) {
+	public String accountTransactionIncomingProcess(@Valid @RequestBody AccountTransactionToBankSystemRequest request) {
 		return accountTransactionIncomingService.accountTransactionIncomingProcess(request);
 	}
 	

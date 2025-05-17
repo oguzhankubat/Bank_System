@@ -51,8 +51,21 @@ public class BackgroundCreateIndividualCustomerAccount {
                     .build();
 
            
+            
             HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            
+            String responseBody = response.body();
+            
+            System.out.println(responseBody);
+            if (responseBody == null || responseBody.isBlank()) {
+                throw new RuntimeException(messageService.getMessage("input.is.wrong"));
+            }
 
+           
+            if (responseBody.contains("TC Kimlik Numarası Bulunamadı")) {
+                throw new RuntimeException(messageService.getMessage("tc.kimlik.number.is.not.exist") + ": " + createİndividualCustomerAccountRequest.getTcKimlikNumber());
+            }
+            
             if (response.statusCode() != 200) {
                 throw new RuntimeException(messageService.getMessage("external.service.fast.system.error") + " Status Code: " + response.statusCode());
             }
@@ -60,14 +73,21 @@ public class BackgroundCreateIndividualCustomerAccount {
          
             ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
             ExternalFastSystemResponse externalFastSystemResponse = objectMapper.readValue(response.body(), ExternalFastSystemResponse.class);
-
+            
+            
         
             CustomerEntity individualCustomer = customerEntityRepository.findByCustomerEntity_TcKimlikNumber(createİndividualCustomerAccountRequest.getTcKimlikNumber());
 
             return new WrapperİndividualCustomerAccount(individualCustomer, externalFastSystemResponse,accountNumber);
 
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(messageService.getMessage("external.service.fast.system.error"), e);
+
+            throw new RuntimeException(messageService.getMessage("tc.kimlik.number.is.not.exist"), e);
+        } catch (RuntimeException e) {
+            
+            throw e;
         }
+        
     }
+    
 }

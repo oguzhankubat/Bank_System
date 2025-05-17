@@ -17,7 +17,6 @@ public class AccountTransactionToFastSystemRequest {
     @Size(min = 26,max = 26)
     private String accountIBAN;
 
-
     @NotNull(message = "Transaction Amount cannot be null")
     @Positive(message = "Transaction Amount must be positive")
     private Double transactionAmount;
@@ -27,5 +26,6 @@ public class AccountTransactionToFastSystemRequest {
 
     @NotBlank(message = "Receipt Bank Account IBAN cannot be blank")
     @NotNull
+    @Size(min = 26,max = 26)
     private String receiptBankAccountIBAN;
 }

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 import Finance.Bank_System.business.abstracts.Common.AccountTransactionIncomingService;
-import Finance.Bank_System.business.requests.CommonRequests.AccountTransactionToBankSystemRequests;
+import Finance.Bank_System.business.requests.CommonRequests.AccountTransactionToBankSystemRequest;
 import Finance.Bank_System.core.ModelMapperServices;
 import Finance.Bank_System.dataRepositories.CustomerEntity.AccountRepository;
 import Finance.Bank_System.dataRepositories.CustomerEntity.AccountTransactionIncomingRepository;
@@ -27,24 +27,25 @@ public class AccountTransactionIncomingManager implements AccountTransactionInco
 	
 	@Transactional
 	public String accountTransactionIncomingProcess(
-	        AccountTransactionToBankSystemRequests accountTransactionToBankSystemRequests) {
+	        AccountTransactionToBankSystemRequest accountTransactionToBankSystemRequest ) {
 
 	    CustomerEntityAccount account = checkAccountTransactionIncomingAccountIBAN
-	        .check(accountTransactionToBankSystemRequests.getReceiptBankAccountIBAN());
+	        .check(accountTransactionToBankSystemRequest);
 
 	    AccountTransactionIncoming accountTransaction = modelMapperServices.forRequest()
-	            .map(accountTransactionToBankSystemRequests, AccountTransactionIncoming.class);
+	            .map(accountTransactionToBankSystemRequest, AccountTransactionIncoming.class);
 
 	    accountTransaction.setCreatedTime(LocalDateTime.now());
 	    accountTransaction.setCustomerEntityAccountTransactionIncoming(account);
+	    
 
-	    account.setAccountBalance(account.getAccountBalance() + accountTransactionToBankSystemRequests.getTransactionAmount());
+	    account.setAccountBalance(account.getAccountBalance() + accountTransactionToBankSystemRequest.getTransactionAmount());
 
 
 	    accountRepository.save(account);
 	    accountTransactionIncomingRepository.save(accountTransaction);
 		
-		return "Success";
+		return "success";
 	}
 
 }

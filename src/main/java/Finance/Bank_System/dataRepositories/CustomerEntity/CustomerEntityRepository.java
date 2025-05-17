@@ -11,7 +11,7 @@ import Finance.Bank_System.entities.CustomerEntity.CustomerEntity;
 public interface CustomerEntityRepository extends JpaRepository<CustomerEntity, Long> {
 
 
-    boolean existsByCustomerEntity(Customer customerEntity);
+	boolean existsByCustomerEntityAndCustomerType(Customer customer, String customerType);
     
     
     boolean existsByCustomerEntityPhoneNumber(String phoneNumber);

@@ -1,9 +1,9 @@
 package Finance.Bank_System.business.abstracts.Common;
 
-import Finance.Bank_System.business.requests.CommonRequests.AccountTransactionToBankSystemRequests;
+import Finance.Bank_System.business.requests.CommonRequests.AccountTransactionToBankSystemRequest;
 
 public interface AccountTransactionIncomingService {
 	
-	String accountTransactionIncomingProcess(AccountTransactionToBankSystemRequests accountTransactionToBankSystemRequests);
+	String accountTransactionIncomingProcess(AccountTransactionToBankSystemRequest externalAccountTransactionToBankSystem);
 
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccountTransactionToBankSystemRequests {
+public class AccountTransactionToBankSystemRequest {
 	
     @NotNull
     @NotBlank
@@ -32,6 +32,11 @@ public class AccountTransactionToBankSystemRequests {
     @NotBlank
     @Size(min = 26, max = 26)
     private String receiptBankAccountIBAN;
+    
+    @NotNull
+    @NotBlank
+    @Size(min=36,max = 36)
+    private String receiptBankAccountToken;
 
     @NotNull
     @NotBlank

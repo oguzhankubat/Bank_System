@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(
-	    name = "account_transactions",
+	    name = "account_transactions_outgoing",
 	    indexes = {
 	        @Index(name = "idx_transaction_outgoing_account_number", columnList = "transaction_outgoing_account_number")
 	    }
