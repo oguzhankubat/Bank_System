@@ -11,6 +11,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -56,10 +57,18 @@ public class CheckTcKimlikNumberRule {
             if (response.statusCode() != 200) {
                 throw new RuntimeException(messageService.getMessage("external.service.civil.registry.error") + response.statusCode());
             }
-
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
             
+	        String responseBody = response.body();
+
+	    	
+	        JsonNode jsonNode = objectMapper.readTree(responseBody);
+	        if (jsonNode.has("message")) {
+	            String errorMessage = jsonNode.get("message").asText();
+	            throw new RuntimeException(errorMessage);
+	        }
+
             ExternalAPICivilSystenCivilResponse civilCustomer =
                     objectMapper.readValue(response.body(), ExternalAPICivilSystenCivilResponse.class);
             
@@ -72,6 +81,7 @@ public class CheckTcKimlikNumberRule {
                 }
                 checkBeforeCreateIndividualCustomer.check(existingCustomer, request);
                 return existingCustomer;
+                
             } else {
                 checkBeforeCreateIndividualCustomer.check(civilCustomer, request);
 

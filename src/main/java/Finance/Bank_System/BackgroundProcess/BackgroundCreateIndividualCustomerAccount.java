@@ -8,6 +8,7 @@ import java.net.http.HttpResponse;
 
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -28,7 +29,7 @@ public class BackgroundCreateIndividualCustomerAccount {
     private final MessageService messageService;
     private final CustomerEntityRepository customerEntityRepository;
     public WrapperİndividualCustomerAccount createİndividualAccount(CreateİndividualCustomerAccountRequest createİndividualCustomerAccountRequest) {
-
+    	
         try {
            
             URI uri = URI.create("http://localhost:8088/api/civilAccount/createAccount");
@@ -54,27 +55,22 @@ public class BackgroundCreateIndividualCustomerAccount {
             
             HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
             
-            String responseBody = response.body();
-            
-            System.out.println(responseBody);
-            if (responseBody == null || responseBody.isBlank()) {
-                throw new RuntimeException(messageService.getMessage("input.is.wrong"));
-            }
-
-           
-            if (responseBody.contains("TC Kimlik Numarası Bulunamadı")) {
-                throw new RuntimeException(messageService.getMessage("tc.kimlik.number.is.not.exist") + ": " + createİndividualCustomerAccountRequest.getTcKimlikNumber());
-            }
             
             if (response.statusCode() != 200) {
                 throw new RuntimeException(messageService.getMessage("external.service.fast.system.error") + " Status Code: " + response.statusCode());
             }
+            
+	        String responseBody = response.body();
 
-         
-            ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
-            ExternalFastSystemResponse externalFastSystemResponse = objectMapper.readValue(response.body(), ExternalFastSystemResponse.class);
-            
-            
+	        ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
+	        
+	        JsonNode jsonNode = objectMapper.readTree(responseBody);
+	        if (jsonNode.has("message")) {
+	            String errorMessage = jsonNode.get("message").asText();
+	            throw new RuntimeException(errorMessage);
+	        }
+
+            ExternalFastSystemResponse externalFastSystemResponse = objectMapper.readValue(response.body(), ExternalFastSystemResponse.class);            
         
             CustomerEntity individualCustomer = customerEntityRepository.findByCustomerEntity_TcKimlikNumber(createİndividualCustomerAccountRequest.getTcKimlikNumber());
 
@@ -82,12 +78,9 @@ public class BackgroundCreateIndividualCustomerAccount {
 
         } catch (IOException | InterruptedException e) {
 
-            throw new RuntimeException(messageService.getMessage("tc.kimlik.number.is.not.exist"), e);
-        } catch (RuntimeException e) {
-            
-            throw e;
-        }
+            throw new RuntimeException(messageService.getMessage("external.service.fast.system.error"), e);
         
     }
     
+    }
 }
