@@ -23,11 +23,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(
-    name = "accounts",
-    indexes = {
-        @Index(name = "idx_account_number", columnList = "account_number")
-    }
-)
+	    name = "accounts",
+	    indexes = {
+	        @Index(name = "idx_account_number", columnList = "account_number"),
+	        @Index(name = "idx_account_token", columnList = "account_token")
+	    }
+	)
 public class CustomerEntityAccount {
 
     @Id
@@ -39,7 +40,7 @@ public class CustomerEntityAccount {
     private String accountIban;
 
     @Column(name = "account_balance")
-    private int accountBalance;
+    private double accountBalance;
 
     @Column(name = "account_token", length = 36, unique = true)
     private String accountToken;
@@ -66,7 +67,10 @@ public class CustomerEntityAccount {
     @JoinColumn(name = "account_customer_entity_number", referencedColumnName = "customer_entity_number", updatable = false)
     private CustomerEntity customerEntityAccount;
 
-    @OneToMany(mappedBy = "customerEntityAccountTransaction")
-    private List<CustomerEntityAccountTransaction> customerEntitiesAccountTransactions;
+    @OneToMany(mappedBy = "customerEntityAccountTransactionIncoming")
+    private List<AccountTransactionIncoming> customerEntitiesAccountTransactionsIncoming;
+    
+    @OneToMany(mappedBy = "customerEntityAccountTransactionOutgoing")
+    private List<AccountTransactionOutgoing> customerEntitiesAccountTransactionsOutgoing;
 
 }

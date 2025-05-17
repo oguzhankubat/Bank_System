@@ -26,12 +26,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(
-    name = "customer_entities",
-    indexes = {
-        @Index(name = "idx_customer_entity_number", columnList = "customer_entity_number"),
-        @Index(name = "idx_customer_type", columnList = "customer_type")
-    }
-)
+	    name = "customer_entities",
+	    indexes = {
+	        @Index(name = "idx_customer_entity_number", columnList = "customer_entity_number"),
+	        @Index(name = "idx_customer_type", columnList = "customer_type"),
+	        @Index(name = "idx_customer_tc_kimlik_number", columnList = "customer_tc_kimlik_number")
+	    }
+	)
 public class CustomerEntity {
 
     @Id
