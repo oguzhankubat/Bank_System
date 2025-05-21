@@ -7,9 +7,6 @@ import java.net.http.HttpResponse;
 
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import Finance.Bank_System.core.MessageService;
 import lombok.AllArgsConstructor;
 
@@ -38,17 +35,7 @@ public class BackgroundActiveİndividualCustomerProcess {
                     .header("Content-Type", "application/json")
                     .build();
             HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-	        String responseBody = response.body();
 
-	        ObjectMapper objectMapper = new ObjectMapper();
-	        
-	        JsonNode jsonNode = objectMapper.readTree(responseBody);
-	        if (jsonNode.has("message")) {
-	            String errorMessage = jsonNode.get("message").asText();
-	            throw new RuntimeException(errorMessage);
-	        }
-            
-            
             return response.body();
 
         } catch (Exception e) {

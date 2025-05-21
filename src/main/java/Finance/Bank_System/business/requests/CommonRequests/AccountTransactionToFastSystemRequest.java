@@ -1,5 +1,8 @@
 package Finance.Bank_System.business.requests.CommonRequests;
 
+import java.math.BigDecimal;
+
+import Finance.Bank_System.BankConstants.TransactionType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -19,8 +22,11 @@ public class AccountTransactionToFastSystemRequest {
 
     @NotNull(message = "Transaction Amount cannot be null")
     @Positive(message = "Transaction Amount must be positive")
-    private Double transactionAmount;
+    private BigDecimal transactionAmount;
 
+    @NotNull
+    private TransactionType transactionType;
+    
     @Size(max = 150)
     private String transactionDescription;
 

@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
 public class İndividualCustomerController {
 	private final İndividualCustomerService individualCustomerService;
 	
-	@PostMapping("/createİndividualCustomer")
+	@PostMapping("/createIndividualCustomer")
 	public AfterCreateİndividualCustomerResponse afterCreateİndividualCustomer(@Valid @RequestBody() CreateİndividualCustomerRequest createİndividualCustomerRequest) {
 		return individualCustomerService.createİndividualCustomer(createİndividualCustomerRequest);
 	}

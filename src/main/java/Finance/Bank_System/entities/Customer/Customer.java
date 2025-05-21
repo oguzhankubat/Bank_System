@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import Finance.Bank_System.entities.CustomerEntity.CustomerEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Index;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -22,10 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(
-	    name = "customers",
-	    indexes = {
-	        @Index(name = "idx_tc_kimlik_number", columnList = "tc_kimlik_number")
-	    }
+	    name = "customers"
 	)
 public class Customer {
     @Id
@@ -60,7 +57,7 @@ public class Customer {
     @Column(name = "customer_statu",length = 7)
     private String customerStatu;
     
-    @OneToMany(mappedBy = "customerEntity")
+    @OneToMany(mappedBy = "customerEntity", cascade = CascadeType.ALL)
     private List<CustomerEntity> customerEntities;
     
     

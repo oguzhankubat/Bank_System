@@ -46,7 +46,7 @@ public class CheckTcKimlikNumberRule {
                     .port(8086)
                     .path("/api/person/check")
                     .queryParam("tcKimlikNumber", request.getTcKimlikNumber())
-                    .queryParam("corporationVkn", BankConstants.BANK_VKN)
+                    .queryParam("corporationVkn", BankConstants.BANK_VKN.getValue())
                     .build()
                     .toUri();
 

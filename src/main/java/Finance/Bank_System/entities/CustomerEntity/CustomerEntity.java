@@ -28,7 +28,6 @@ import lombok.NoArgsConstructor;
 @Table(
 	    name = "customer_entities",
 	    indexes = {
-	        @Index(name = "idx_customer_entity_number", columnList = "customer_entity_number"),
 	        @Index(name = "idx_customer_type", columnList = "customer_type"),
 	        @Index(name = "idx_customer_tc_kimlik_number", columnList = "customer_tc_kimlik_number")
 	    }
@@ -58,7 +57,7 @@ public class CustomerEntity {
     @Column(name = "customer_type",length = 11)
     private String customerType;
 
-    @OneToMany(mappedBy = "customerEntityAccount")
+    @OneToMany(mappedBy = "customerEntityAccount", cascade = CascadeType.ALL)
     private List<CustomerEntityAccount> customerEntitiesAccounts;
 
     @OneToMany(mappedBy = "customerEntityAdress", cascade = CascadeType.ALL)

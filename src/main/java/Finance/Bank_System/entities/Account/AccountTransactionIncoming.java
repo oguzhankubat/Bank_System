@@ -1,6 +1,7 @@
 package Finance.Bank_System.entities.Account;
 
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -33,28 +34,31 @@ public class AccountTransactionIncoming {
     private int id;
     
     
-    @Column(name = "transaction_description",length = 150)
+    @Column(name = "transaction_description",length = 150,updatable = false)
     private String transactionDescription;
 
     @Column(name = "transaction_amount", nullable = false)
-    private double transactionAmount;
+    private BigDecimal transactionAmount;
 
-    @Column(name = "sender_person_name", length = 35, nullable = false)
+    @Column(name = "sender_person_name", length = 35, nullable = false,updatable = false)
     private String senderPersonName;
 
-    @Column(name = "sender_person_last_name", length = 20, nullable = false)
+    @Column(name = "sender_person_last_name", length = 20, nullable = false,updatable = false)
     private String senderPersonLastName;
 
-    @Column(name = "transaction_number", length = 36, nullable = false, unique = true)
+    @Column(name = "transaction_number", length = 36, nullable = false, unique = true,updatable = false)
     private String transactionNumber;
+    
+    @Column(name = "transaction_type",length = 20,updatable = false)
+    private String transactionType;
 
-    @Column(name = "sender_account_iban", length = 26, nullable = false)
+    @Column(name = "sender_account_iban", length = 26, nullable = false,updatable = false)
     private String senderAccountIBAN;
 
-    @Column(name = "created_time", nullable = false)
+    @Column(name = "created_time")
     private LocalDateTime createdTime;
     
     @ManyToOne
-    @JoinColumn(name = "transaction_incoming_account_number", referencedColumnName = "account_number")
+    @JoinColumn(name = "transaction_incoming_account_number", referencedColumnName = "account_number",updatable = false)
     private CustomerEntityAccount customerEntityAccountTransactionIncoming;
 } 

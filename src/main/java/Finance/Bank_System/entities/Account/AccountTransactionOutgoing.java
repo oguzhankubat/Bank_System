@@ -1,9 +1,13 @@
 package Finance.Bank_System.entities.Account;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import Finance.Bank_System.BankConstants.TransactionType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,27 +39,31 @@ public class AccountTransactionOutgoing{
     private String transactionDescription;
 
     @Column(name = "transaction_amount", nullable = false)
-    private double transactionAmount;
+    private BigDecimal transactionAmount;
 
-    @Column(name = "transaction_number", length = 36, nullable = false, unique = true)
+    @Column(name = "transaction_number", length = 36, nullable = false, unique = true,updatable = false)
     private String transactionNumber;
     
-    @Column(name = "receipt_bank_account_ıban" ,length = 26)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "transaction_type",length = 20,updatable = false)
+    private TransactionType transactionType;
+    
+    @Column(name = "receipt_bank_account_ıban" ,length = 26,updatable = false)
     private String receiptBankAccountIBAN;
     
-    @Column(name = "receipt_person_name",length = 40)
+    @Column(name = "receipt_person_name",length = 40,updatable = false)
     private String receiptPersonName;
     
-    @Column(name = "receipt_person_last_name",length = 40)
+    @Column(name = "receipt_person_last_name",length = 40,updatable = false)
     private String receiptPersonLastName;
     
-    @Column(name = "receipt_bank_name",length = 40)
+    @Column(name = "receipt_bank_name",length = 40,updatable = false)
     private String receiptBankName;
     
     @Column(name = "created_time", nullable = false)
     private LocalDateTime createdTime;
     
     @ManyToOne
-    @JoinColumn(name = "transaction_outgoing_account_number", referencedColumnName = "account_number")
+    @JoinColumn(name = "transaction_outgoing_account_number", referencedColumnName = "account_number",updatable = false)
     private CustomerEntityAccount customerEntityAccountTransactionOutgoing;
 } 

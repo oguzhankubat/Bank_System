@@ -1,5 +1,6 @@
 package Finance.Bank_System.business.concretes.Common;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
@@ -39,7 +40,14 @@ public class AccountTransactionIncomingManager implements AccountTransactionInco
 	    accountTransaction.setCustomerEntityAccountTransactionIncoming(account);
 	    
 
-	    account.setAccountBalance(account.getAccountBalance() + accountTransactionToBankSystemRequest.getTransactionAmount());
+	    BigDecimal currentBalance = account.getAccountBalance();
+	    BigDecimal transactionAmount = accountTransactionToBankSystemRequest.getTransactionAmount();
+
+
+	    BigDecimal updatedBalance = currentBalance.add(transactionAmount);
+
+
+	    account.setAccountBalance(updatedBalance);
 
 
 	    accountRepository.save(account);

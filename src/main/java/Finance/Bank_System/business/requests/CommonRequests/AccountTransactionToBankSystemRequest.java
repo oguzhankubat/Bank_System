@@ -1,5 +1,8 @@
 package Finance.Bank_System.business.requests.CommonRequests;
 
+import java.math.BigDecimal;
+
+import Finance.Bank_System.BankConstants.TransactionType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -18,7 +21,7 @@ public class AccountTransactionToBankSystemRequest {
     private String senderAccountIBAN;
 
     @NotNull
-    private double transactionAmount;
+    private BigDecimal transactionAmount;
 
     @NotNull
     @NotBlank
@@ -27,6 +30,9 @@ public class AccountTransactionToBankSystemRequest {
     @NotNull
     @NotBlank
     private String transactionNumber;
+    
+    @NotNull
+    private TransactionType transactionType;
 
     @NotNull
     @NotBlank

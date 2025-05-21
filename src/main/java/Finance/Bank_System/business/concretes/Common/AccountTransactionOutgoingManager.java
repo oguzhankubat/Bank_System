@@ -1,5 +1,6 @@
 package Finance.Bank_System.business.concretes.Common;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
@@ -38,15 +39,23 @@ public class AccountTransactionOutgoingManager implements AccountTransactionOutg
 		
 		AccountTransactionOutgoing transaction=modelMapperServices.forRequest()
 				.map(accountTransactionToFastSystemRequest, AccountTransactionOutgoing.class);
+		
 		transaction.setCreatedTime(LocalDateTime.now());
 		transaction.setReceiptBankName(transactionResponse.getReceiptBankName());
 		transaction.setReceiptPersonLastName(transactionResponse.getReceiptPersonLastName());
 		transaction.setReceiptPersonName(transactionResponse.getReceiptPersonName());
 		transaction.setTransactionNumber(transactionResponse.getTransactionNumber());
+		transaction.setTransactionType(accountTransactionToFastSystemRequest.getTransactionType());
 		
 		transaction.setCustomerEntityAccountTransactionOutgoing(account);
 		
-		account.setAccountBalance(account.getAccountBalance() - accountTransactionToFastSystemRequest.getTransactionAmount());
+		BigDecimal currentBalance = account.getAccountBalance();
+		BigDecimal transactionAmount = accountTransactionToFastSystemRequest.getTransactionAmount();
+
+
+		BigDecimal updatedBalance = currentBalance.subtract(transactionAmount);
+
+		account.setAccountBalance(updatedBalance);
 		
 		accountTransactionOutgoingRepository.save(transaction);
 		accountRepository.save(account);

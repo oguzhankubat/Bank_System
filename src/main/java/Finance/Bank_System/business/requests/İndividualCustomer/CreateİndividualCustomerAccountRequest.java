@@ -2,6 +2,8 @@ package Finance.Bank_System.business.requests.İndividualCustomer;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import Finance.Bank_System.BankConstants.AccountCurrency;
+import Finance.Bank_System.BankConstants.AccountType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -20,16 +22,10 @@ public class CreateİndividualCustomerAccountRequest {
     private String tcKimlikNumber;
     
 	@NotNull
-	@NotBlank
-	@Size(max = 15)
-    @JsonDeserialize(using = Finance.Bank_System.core.UpperCaseDeserializer.class)
-    private String accountType;
+    private AccountType accountType;
     
 	@NotNull
-	@NotBlank
-	@Size(min=3,max = 3)
-    @JsonDeserialize(using = Finance.Bank_System.core.UpperCaseDeserializer.class)
-    private String accountCurrency;  
+    private AccountCurrency accountCurrency;  
     
 	@NotNull
 	@NotBlank

@@ -1,5 +1,6 @@
 package Finance.Bank_System.business.concretes.İndividualCustomer;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ public class İndividualCustomerAccountManager implements İndividualCustomerAcc
 	private final MessageService messageService;
 	private final BackgroundActiveİndividualCustomerProcess backgroundActiveİndividualCustomerProcess;
 	
+	
 	@Override
 	@Transactional
 	public String createİndividualCustomerAccount(
@@ -38,7 +40,7 @@ public class İndividualCustomerAccountManager implements İndividualCustomerAcc
 		
 		CustomerEntityAccount account=modelMapperServices.forRequest()
 				.map(createİndividualCustomerAccountRequest, CustomerEntityAccount.class);
-		account.setAccountBalance(0);
+		account.setAccountBalance(BigDecimal.ZERO);
 		account.setAccountIban(fastSystemResponse.getAccountIBAN());
 		account.setAccountToken(fastSystemResponse.getAccountToken());
 		account.setAccountStatu("Active");

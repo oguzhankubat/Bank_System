@@ -1,6 +1,7 @@
 package Finance.Bank_System.BackgroundProcess;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -34,27 +35,32 @@ public class BackgroundAccountTransactionOutgoingProcess {
 	    	CustomerEntityAccount account = accountRepository.findByAccountIban(request.getAccountIBAN())
 	    		    .orElseThrow(() -> new RuntimeException(messageService.getMessage("iban.is.not.found") + request.getAccountIBAN()));
 	        
-	    	double currentBalance = account.getAccountBalance();
-	    	double transactionAmount = request.getTransactionAmount();
+	    	BigDecimal currentBalance = account.getAccountBalance();
+	    	BigDecimal transactionAmount = request.getTransactionAmount();
 
-	    	if (currentBalance - transactionAmount < 0) {
+	    	if (currentBalance.compareTo(transactionAmount) < 0) {
 	    	    throw new RuntimeException(messageService.getMessage("account.balance.is.not.enough"));
 	    	}
 	    	
 	        URI uri = URI.create(BankConstants.FAST_SYSTEM_API.getValue());
 
-	        String requestBody = String.format(
-	        	    "{\"accountIBAN\":\"%s\","
-	        	    + "\"accountToken\":\"%s\","
-	        	    + "\"transactionAmount\":\"%s\","
-	        	    + "\"transactionDescription\":\"%s\","
-	        	    + "\"receiptBankAccountIBAN\":\"%s\"}",
-	        	    request.getAccountIBAN(),
-	        	    account.getAccountToken(),
-	        	    request.getTransactionAmount(),
-	        	    request.getTransactionDescription(),
-	        	    request.getReceiptBankAccountIBAN()
-	        	);
+	        String requestBody = String.format("""
+	                {
+	                    "accountIBAN": "%s",
+	                    "accountToken": "%s",
+	                    "transactionAmount": "%s",
+	                    "transactionDescription": "%s",
+	                    "receiptBankAccountIBAN": "%s",
+	                    "transactionType": "%s"
+	                }
+	                """,
+	                request.getAccountIBAN(),
+	                account.getAccountToken(),
+	                request.getTransactionAmount(),
+	                request.getTransactionDescription(),
+	                request.getReceiptBankAccountIBAN(),
+	                request.getTransactionType()
+	        );
 
 	 
 	        HttpClient client = HttpClient.newHttpClient();
