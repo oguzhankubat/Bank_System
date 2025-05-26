@@ -13,8 +13,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import Finance.Bank_System.BankConstants.BankConstants;
-import Finance.Bank_System.DTO_pojo.ExternalFastSystemTransactionResponse;
-import Finance.Bank_System.DTO_pojo.WrapperAccountTransactionFromFastSystem;
+import Finance.Bank_System.DTO_pojo_records.ExternalFastSystemTransactionResponse;
+import Finance.Bank_System.DTO_pojo_records.WrapperAccountTransactionFromFastSystem;
 import Finance.Bank_System.business.requests.CommonRequests.AccountTransactionToFastSystemRequest;
 import Finance.Bank_System.core.MessageService;
 import Finance.Bank_System.dataRepositories.CustomerEntity.AccountRepository;

@@ -13,8 +13,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import Finance.Bank_System.BankConstants.BankConstants;
-import Finance.Bank_System.DTO_pojo.ExternalFastSystemResponse;
-import Finance.Bank_System.DTO_pojo.WrapperİndividualCustomerAccount;
+import Finance.Bank_System.DTO_pojo_records.ExternalFastSystemResponse;
+import Finance.Bank_System.DTO_pojo_records.WrapperİndividualCustomerAccount;
 import Finance.Bank_System.business.requests.İndividualCustomer.CreateİndividualCustomerAccountRequest;
 import Finance.Bank_System.core.MessageService;
 import Finance.Bank_System.dataRepositories.CustomerEntity.CustomerEntityRepository;
@@ -72,7 +72,7 @@ public class BackgroundCreateIndividualCustomerAccount {
 
             ExternalFastSystemResponse externalFastSystemResponse = objectMapper.readValue(response.body(), ExternalFastSystemResponse.class);            
         
-            CustomerEntity individualCustomer = customerEntityRepository.findByCustomerEntity_TcKimlikNumber(createİndividualCustomerAccountRequest.getTcKimlikNumber());
+            CustomerEntity individualCustomer = customerEntityRepository.findByCustomerEntityTcKimlikNumber(createİndividualCustomerAccountRequest.getTcKimlikNumber());
 
             return new WrapperİndividualCustomerAccount(individualCustomer, externalFastSystemResponse,accountNumber);
 

@@ -14,12 +14,11 @@ public interface CustomerEntityRepository extends JpaRepository<CustomerEntity, 
 	boolean existsByCustomerEntityAndCustomerType(Customer customer, String customerType);
     
     
-    boolean existsByCustomerEntityPhoneNumber(String phoneNumber);
-    
+    boolean existsByCustomerEntityPhoneNumber(String phoneNumber);   
  
     boolean existsByCustomerEntityNumber(String customerEntityNumber);
 
-    CustomerEntity findByCustomerEntity_TcKimlikNumber(String tcKimlikNumber);
+    CustomerEntity findByCustomerEntityTcKimlikNumber(String tcKimlikNumber);
     
     List<CustomerEntity> findByCustomerType(String customerType);
 

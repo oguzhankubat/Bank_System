@@ -1,4 +1,4 @@
-package Finance.Bank_System.DTO_pojo;
+package Finance.Bank_System.DTO_pojo_records;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import Finance.Bank_System.BackgroundProcess.BackgroundActiveİndividualCustomerProcess;
 import Finance.Bank_System.BackgroundProcess.BackgroundCreateIndividualCustomerAccount;
-import Finance.Bank_System.DTO_pojo.ExternalFastSystemResponse;
-import Finance.Bank_System.DTO_pojo.WrapperİndividualCustomerAccount;
+import Finance.Bank_System.DTO_pojo_records.ExternalFastSystemResponse;
+import Finance.Bank_System.DTO_pojo_records.WrapperİndividualCustomerAccount;
 import Finance.Bank_System.business.abstracts.individualCustomer.İndividualCustomerAccountService;
 import Finance.Bank_System.business.requests.İndividualCustomer.CreateİndividualCustomerAccountRequest;
 import Finance.Bank_System.core.MessageService;

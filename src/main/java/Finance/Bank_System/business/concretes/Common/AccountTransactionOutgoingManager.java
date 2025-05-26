@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 import Finance.Bank_System.BackgroundProcess.BackgroundAccountTransactionOutgoingProcess;
-import Finance.Bank_System.DTO_pojo.ExternalFastSystemTransactionResponse;
-import Finance.Bank_System.DTO_pojo.WrapperAccountTransactionFromFastSystem;
+import Finance.Bank_System.DTO_pojo_records.ExternalFastSystemTransactionResponse;
+import Finance.Bank_System.DTO_pojo_records.WrapperAccountTransactionFromFastSystem;
 import Finance.Bank_System.business.abstracts.Common.AccountTransactionOutgoingService;
 import Finance.Bank_System.business.requests.CommonRequests.AccountTransactionToFastSystemRequest;
 import Finance.Bank_System.core.ModelMapperServices;

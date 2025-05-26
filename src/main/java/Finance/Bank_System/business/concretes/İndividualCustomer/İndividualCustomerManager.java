@@ -1,10 +1,19 @@
 package Finance.Bank_System.business.concretes.İndividualCustomer;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import Finance.Bank_System.BankConstants.BankConstants;
+import Finance.Bank_System.DTO_pojo_records.InternalGetAllCustomerEntity;
 import Finance.Bank_System.business.abstracts.individualCustomer.İndividualCustomerService;
 import Finance.Bank_System.business.requests.İndividualCustomer.CreateİndividualCustomerRequest;
 import Finance.Bank_System.business.responses.İndividualCustomer.AfterCreateİndividualCustomerResponse;
@@ -55,5 +64,36 @@ public class İndividualCustomerManager implements İndividualCustomerService{
 		AfterCreateİndividualCustomerResponse message=new AfterCreateİndividualCustomerResponse("Customer is created succesfully");
 		return message;
 	}
+
+	@Override
+	public List<InternalGetAllCustomerEntity> getAllCustomerEntity() {
+	    List<CustomerEntity> persons = customerEntityRepository.findAll();
+
+	    List<InternalGetAllCustomerEntity> personDTOs = persons.stream()
+	            .map(person -> modelMapperServices.forResponse().map(person, InternalGetAllCustomerEntity.class))
+	            .collect(Collectors.toList());
+
+	    savePersonsToJson(personDTOs);                        
+
+	    return personDTOs;
+	}
+
+    private void savePersonsToJson(List<InternalGetAllCustomerEntity> persons) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        File directory = new File("data");
+
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        try {
+            objectMapper.writeValue(new File(directory, "customerEntity.json"), persons);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -2,7 +2,7 @@ package Finance.Bank_System.rules;
 
 import org.springframework.stereotype.Component;
 
-import Finance.Bank_System.DTO_pojo.ExternalAPICivilSystenCivilResponse;
+import Finance.Bank_System.DTO_pojo_records.ExternalAPICivilSystenCivilResponse;
 import Finance.Bank_System.business.requests.İndividualCustomer.CreateİndividualCustomerRequest;
 import Finance.Bank_System.core.MessageService;
 import Finance.Bank_System.entities.Customer.Customer;

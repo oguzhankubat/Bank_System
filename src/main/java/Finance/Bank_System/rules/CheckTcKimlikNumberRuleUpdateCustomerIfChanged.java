@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CheckTcKimlikNumberRuleUpdateCustomerIfChanged {
 
-    public boolean updateCustomerIfChanged(Finance.Bank_System.entities.Customer.Customer existingCustomer, Finance.Bank_System.DTO_pojo.ExternalAPICivilSystenCivilResponse civilCustomer) {
+    public boolean updateCustomerIfChanged(Finance.Bank_System.entities.Customer.Customer existingCustomer, Finance.Bank_System.DTO_pojo_records.ExternalAPICivilSystenCivilResponse civilCustomer) {
         boolean isUpdated = false;
 
         if (!Objects.equals(existingCustomer.getPersonName(), civilCustomer.getPersonName())) {

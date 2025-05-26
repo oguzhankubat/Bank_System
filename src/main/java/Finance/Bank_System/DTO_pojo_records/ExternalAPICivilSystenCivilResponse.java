@@ -1,4 +1,4 @@
-package Finance.Bank_System.DTO_pojo;
+package Finance.Bank_System.DTO_pojo_records;
 
 import java.time.LocalDate;
 

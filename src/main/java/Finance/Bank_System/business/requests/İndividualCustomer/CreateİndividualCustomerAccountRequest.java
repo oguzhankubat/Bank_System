@@ -1,7 +1,5 @@
 package Finance.Bank_System.business.requests.İndividualCustomer;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 import Finance.Bank_System.BankConstants.AccountCurrency;
 import Finance.Bank_System.BankConstants.AccountType;
 import jakarta.validation.constraints.NotBlank;

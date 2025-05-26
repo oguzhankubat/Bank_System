@@ -51,7 +51,7 @@
 	    private String accountNumber;
 	    
 	    @Enumerated(EnumType.STRING)
-	    @Column(name = "account_type", length = 10,nullable = false,updatable = false)
+	    @Column(name = "account_type", length = 15,nullable = false,updatable = false)
 	    private AccountType accountType;
 	
 	    @Column(name = "account_currency", length = 3, nullable = false,updatable = false)
