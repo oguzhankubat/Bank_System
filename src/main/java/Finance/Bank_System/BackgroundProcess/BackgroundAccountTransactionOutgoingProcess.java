@@ -17,7 +17,7 @@ import Finance.Bank_System.DTO_pojo_records.ExternalFastSystemTransactionRespons
 import Finance.Bank_System.DTO_pojo_records.WrapperAccountTransactionFromFastSystem;
 import Finance.Bank_System.business.requests.CommonRequests.AccountTransactionToFastSystemRequest;
 import Finance.Bank_System.core.MessageService;
-import Finance.Bank_System.dataRepositories.CustomerEntity.AccountRepository;
+import Finance.Bank_System.dataRepositories.Accounts.AccountRepository;
 import Finance.Bank_System.entities.Account.CustomerEntityAccount;
 import lombok.AllArgsConstructor;
 

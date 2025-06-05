@@ -44,4 +44,4 @@ if __name__ == "__main__":
         print("Status Code:", response.status_code)
         print("Response Body:", response.text)
 
-        #time.sleep(1)
+        time.sleep(0.1)

@@ -5,16 +5,14 @@ import java.util.List;
 
 import Finance.Bank_System.entities.Account.CustomerEntityAccount;
 import Finance.Bank_System.entities.Adress.CustomerEntityAdress;
-import Finance.Bank_System.entities.Customer.Customer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Index;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -26,12 +24,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(
-	    name = "customer_entities",
-	    indexes = {
-	        @Index(name = "idx_customer_type", columnList = "customer_type"),
-	        @Index(name = "idx_customer_tc_kimlik_number", columnList = "customer_tc_kimlik_number")
-	    }
+	    name = "customer_entities"
+
 	)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class CustomerEntity {
 
     @Id
@@ -54,8 +50,6 @@ public class CustomerEntity {
     @Column(name = "customer_entity_number", unique = true, length = 13)
     private String customerEntityNumber;
 
-    @Column(name = "customer_type",length = 11)
-    private String customerType;
 
     @OneToMany(mappedBy = "customerEntityAccount", cascade = CascadeType.ALL)
     private List<CustomerEntityAccount> customerEntitiesAccounts;
@@ -63,7 +57,4 @@ public class CustomerEntity {
     @OneToMany(mappedBy = "customerEntityAdress", cascade = CascadeType.ALL)
     private List<CustomerEntityAdress> customerEntitiesAdresses;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_tc_kimlik_number", referencedColumnName = "tc_kimlik_number")
-    private Customer customerEntity;
 }

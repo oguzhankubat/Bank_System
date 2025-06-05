@@ -1,4 +1,4 @@
-package Finance.Bank_System.dataRepositories.CustomerEntity;
+package Finance.Bank_System.dataRepositories.Accounts;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
