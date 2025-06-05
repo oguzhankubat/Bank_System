@@ -9,4 +9,4 @@ Version_1.9-İndividual Customer Account oluşturma işlemleri tamamlandı.
 Version_2.0- Entity sınıfları ve Veritabanı tasarımı değiştirildi.
 Version_2.1-Account transaction işlemleri tamamlandı.Arka plan işlemleri iyileştirildi.
 Version_2.2-Arka plan işleyişi iyileştirildi.
-Version_2.3-Veritabanı tasarımı değiştirildi.(Geliştirme devam ediyor.)
+Version_2.3-Veritabanı tasarımı değiştirildi. Arka planda değişiklikler tamamlandı.
