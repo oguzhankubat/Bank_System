@@ -4,12 +4,12 @@ import java.security.SecureRandom;
 
 import org.springframework.stereotype.Component;
 
-import Finance.Bank_System.dataRepositories.CustomerEntity.CustomerEntityRepository;
+import Finance.Bank_System.dataRepositories.CustomerTypes.CustomerEntityRepository;
 import lombok.AllArgsConstructor;
 
 @Component
 @AllArgsConstructor
-public class İndividualCustomerNumberGenerator {
+public class CustomerNumberGenerator {
 
     private final CustomerEntityRepository customerEntityRepository;
 

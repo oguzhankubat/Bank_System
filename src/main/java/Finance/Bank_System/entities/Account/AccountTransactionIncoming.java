@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Table(
 	    name = "account_transactions_incoming",
 	    indexes = {
-	        @Index(name = "idx_transaction_incoming_account_number", columnList = "transaction_incoming_account_number")
+	        @Index(name = "idx_customer_entity_account_id_incoming", columnList = "customer_entity_account_id_incoming")
 	    }
 	)
 public class AccountTransactionIncoming {
@@ -59,6 +59,6 @@ public class AccountTransactionIncoming {
     private LocalDateTime createdTime;
     
     @ManyToOne
-    @JoinColumn(name = "transaction_incoming_account_number", referencedColumnName = "account_number",updatable = false)
+    @JoinColumn(name = "customer_entity_account_id_incoming",updatable = false)
     private CustomerEntityAccount customerEntityAccountTransactionIncoming;
 } 

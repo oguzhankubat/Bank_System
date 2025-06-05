@@ -11,8 +11,8 @@ import Finance.Bank_System.DTO_pojo_records.WrapperAccountTransactionFromFastSys
 import Finance.Bank_System.business.abstracts.Common.AccountTransactionOutgoingService;
 import Finance.Bank_System.business.requests.CommonRequests.AccountTransactionToFastSystemRequest;
 import Finance.Bank_System.core.ModelMapperServices;
-import Finance.Bank_System.dataRepositories.CustomerEntity.AccountRepository;
-import Finance.Bank_System.dataRepositories.CustomerEntity.AccountTransactionOutgoingRepository;
+import Finance.Bank_System.dataRepositories.Accounts.AccountRepository;
+import Finance.Bank_System.dataRepositories.Accounts.AccountTransactionOutgoingRepository;
 import Finance.Bank_System.entities.Account.AccountTransactionOutgoing;
 import Finance.Bank_System.entities.Account.CustomerEntityAccount;
 import jakarta.transaction.Transactional;

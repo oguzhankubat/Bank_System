@@ -17,7 +17,7 @@ import Finance.Bank_System.DTO_pojo_records.ExternalFastSystemResponse;
 import Finance.Bank_System.DTO_pojo_records.WrapperİndividualCustomerAccount;
 import Finance.Bank_System.business.requests.İndividualCustomer.CreateİndividualCustomerAccountRequest;
 import Finance.Bank_System.core.MessageService;
-import Finance.Bank_System.dataRepositories.CustomerEntity.CustomerEntityRepository;
+import Finance.Bank_System.dataRepositories.CustomerTypes.IndividualCustomerRepository;
 import Finance.Bank_System.entities.CustomerEntity.CustomerEntity;
 import Finance.Bank_System.utilities.AccountNumberGenerator;
 import lombok.AllArgsConstructor;
@@ -27,7 +27,8 @@ import lombok.AllArgsConstructor;
 public class BackgroundCreateIndividualCustomerAccount {
 
     private final MessageService messageService;
-    private final CustomerEntityRepository customerEntityRepository;
+    private final IndividualCustomerRepository individualCustomerRepository;
+    
     public WrapperİndividualCustomerAccount createİndividualAccount(CreateİndividualCustomerAccountRequest createİndividualCustomerAccountRequest) {
     	
         try {
@@ -72,7 +73,7 @@ public class BackgroundCreateIndividualCustomerAccount {
 
             ExternalFastSystemResponse externalFastSystemResponse = objectMapper.readValue(response.body(), ExternalFastSystemResponse.class);            
         
-            CustomerEntity individualCustomer = customerEntityRepository.findByCustomerEntityTcKimlikNumber(createİndividualCustomerAccountRequest.getTcKimlikNumber());
+            CustomerEntity individualCustomer = individualCustomerRepository.findByCustomerTcKimlikNumber(createİndividualCustomerAccountRequest.getTcKimlikNumber());
 
             return new WrapperİndividualCustomerAccount(individualCustomer, externalFastSystemResponse,accountNumber);
 

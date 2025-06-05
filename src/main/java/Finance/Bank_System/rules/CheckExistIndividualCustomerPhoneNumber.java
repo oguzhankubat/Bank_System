@@ -3,7 +3,7 @@ package Finance.Bank_System.rules;
 import org.springframework.stereotype.Component;
 
 import Finance.Bank_System.core.MessageService;
-import Finance.Bank_System.dataRepositories.CustomerEntity.CustomerEntityRepository;
+import Finance.Bank_System.dataRepositories.CustomerTypes.CustomerEntityRepository;
 import lombok.AllArgsConstructor;
 
 @Component

@@ -13,7 +13,7 @@ import Finance.Bank_System.business.abstracts.individualCustomer.İndividualCust
 import Finance.Bank_System.business.requests.İndividualCustomer.CreateİndividualCustomerAccountRequest;
 import Finance.Bank_System.core.MessageService;
 import Finance.Bank_System.core.ModelMapperServices;
-import Finance.Bank_System.dataRepositories.CustomerEntity.AccountRepository;
+import Finance.Bank_System.dataRepositories.Accounts.AccountRepository;
 import Finance.Bank_System.entities.Account.CustomerEntityAccount;
 import Finance.Bank_System.entities.CustomerEntity.CustomerEntity;
 import jakarta.transaction.Transactional;

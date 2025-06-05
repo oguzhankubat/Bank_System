@@ -64,7 +64,7 @@
 	    private LocalDateTime createdTime;
 	
 	    @ManyToOne
-	    @JoinColumn(name = "account_customer_entity_number", referencedColumnName = "customer_entity_number", updatable = false)
+	    @JoinColumn(name = "customer_entity_id", updatable = false)
 	    private CustomerEntity customerEntityAccount;
 	
 	    @OneToMany(mappedBy = "customerEntityAccountTransactionIncoming", cascade = CascadeType.ALL)
