@@ -8,6 +8,7 @@ import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -22,33 +23,41 @@ import Finance.Bank_System.core.MessageService;
 import Finance.Bank_System.core.ModelMapperServices;
 import Finance.Bank_System.dataRepositories.Customer.CustomerRepository;
 import Finance.Bank_System.entities.Customer.Customer;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CheckTcKimlikNumberRule {
 
-    private CustomerRepository customerRepository;
-    private ModelMapperServices modelMapperServices;
-    private MessageService messageService;
-    private CheckBeforeCreateIndividualCustomer checkBeforeCreateIndividualCustomer;
-    private CheckTcKimlikNumberRuleUpdateCustomerIfChanged checkTcKimlikNumberRuleUpdateCustomerIfChanged;
+    private final CustomerRepository customerRepository;
+    private final ModelMapperServices modelMapperServices;
+    private final MessageService messageService;
+    private final CheckBeforeCreateIndividualCustomer checkBeforeCreateIndividualCustomer;
+    private final CheckTcKimlikNumberRuleUpdateCustomerIfChanged checkTcKimlikNumberRuleUpdateCustomerIfChanged;
+    
+    // application.properties dosyasından Civil System adresini okur.
+    // Local: http://localhost:8086
+    // Docker: http://civil-system:8086
+    @Value("${service.civil.url}")
+    private String civilServiceUrl;
     
     public Customer fetchCustomerFromCivilSystem(CreateİndividualCustomerRequest request) {
-    	
+        
         Optional<Customer> existingCustomerOpt = customerRepository.findByTcKimlikNumber(request.getTcKimlikNumber());
 
         try {
+            // --- GÜNCELLEME: fromHttpUrl YERİNE fromUriString ---
+            // Spring 6.2+ sürümlerinde fromHttpUrl deprecated olduğu için 
+            // fromUriString metoduna geçiş yapıldı.
+            
             URI uri = UriComponentsBuilder
-                    .newInstance()
-                    .scheme("http")
-                    .host("localhost")
-                    .port(8086)
-                    .path("/api/person/check")
+                    .fromUriString(civilServiceUrl) // GÜNCELLENEN KISIM
+                    .path("/api/person/check")   
                     .queryParam("tcKimlikNumber", request.getTcKimlikNumber())
                     .queryParam("corporationVkn", BankConstants.BANK_VKN.getValue())
                     .build()
                     .toUri();
+            // -------------------------------------
 
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest httpRequest = HttpRequest.newBuilder().uri(uri).GET().build();
@@ -60,14 +69,14 @@ public class CheckTcKimlikNumberRule {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
             
-	        String responseBody = response.body();
+            String responseBody = response.body();
 
-	    	
-	        JsonNode jsonNode = objectMapper.readTree(responseBody);
-	        if (jsonNode.has("message")) {
-	            String errorMessage = jsonNode.get("message").asText();
-	            throw new RuntimeException(errorMessage);
-	        }
+            
+            JsonNode jsonNode = objectMapper.readTree(responseBody);
+            if (jsonNode.has("message")) {
+                String errorMessage = jsonNode.get("message").asText();
+                throw new RuntimeException(errorMessage);
+            }
 
             ExternalAPICivilSystenCivilResponse civilCustomer =
                     objectMapper.readValue(response.body(), ExternalAPICivilSystenCivilResponse.class);
@@ -99,6 +108,3 @@ public class CheckTcKimlikNumberRule {
         
     }
 }
-    
-    
-
