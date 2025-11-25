@@ -2,11 +2,9 @@ package Finance.Bank_System.BankConstants;
 
 public enum BankConstants {
     BANK_VKN("1111111119"),
-    ACCOUNT_OWNERSHIP_BANK("8801820c-8846-4185-a7a8-8095a97dea36"),
+    ACCOUNT_OWNERSHIP_BANK("80a98395-de37-4b81-938b-a442d9c2591a"),
     CUSTOMER_TYPE_INDIVIDUAL("Individual"),
-    CUSTOMER_TYPE_CORPORATE("Corporate"),
-	FAST_SYSTEM_API("http://localhost:8088/api/transaction/process"),
-	BANK_ACCOUNT_TRANSACTION_CALLBACK_URL("http://localhost:8090/api/accountTransaction/incoming");
+    CUSTOMER_TYPE_CORPORATE("Corporate");
 
     private final String value;
 
